@@ -10,6 +10,6 @@ RUN apk add --no-cache postgresql-dev unzip \
 
 RUN mv $PHP_INI_DIR/php.ini-development $PHP_INI_DIR/php.ini
 
-COPY ./common/php/conf.d user/local/etc/php/conf.d
+COPY ./common/php/conf.d /usr/local/etc/php/conf.d
 
 WORKDIR /app
