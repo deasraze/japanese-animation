@@ -18,6 +18,8 @@ services:
       dockerfile: development/php-fpm/Dockerfile
     volumes:
       - ./api:/app
+    depends_on:
+      - api-postgres
 
   api-php-cli:
     build:
@@ -25,3 +27,19 @@ services:
       dockerfile: development/php-cli/Dockerfile
     volumes:
       - ./api:/app
+    depends_on:
+      - api-postgres
+
+  api-postgres:
+    image: postgres:13.4-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: app
+    volumes:
+      - api-postgres:/var/lib/postgresql/data
+    ports:
+      - "54321:5432"
+
+volumes:
+  api-postgres:
