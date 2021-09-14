@@ -16,6 +16,8 @@ services:
     build:
       context: api/docker
       dockerfile: development/php-fpm/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://app:secret@api-postgres:54321/app?serverVersion=13&charset=utf8
     volumes:
       - ./api:/app
     depends_on:
@@ -25,6 +27,8 @@ services:
     build:
       context: api/docker
       dockerfile: development/php-cli/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://app:secret@api-postgres:54321/app?serverVersion=13&charset=utf8
     volumes:
       - ./api:/app
     depends_on:
