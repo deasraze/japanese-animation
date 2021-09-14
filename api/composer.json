@@ -20,6 +20,7 @@
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
+        "overtrue/phplint": "^3.0",
         "symfony/stopwatch": "5.3.*",
         "symfony/web-profiler-bundle": "5.3.*"
     },
@@ -55,7 +56,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "lint": "phplint"
     },
     "conflict": {
         "symfony/symfony": "*"

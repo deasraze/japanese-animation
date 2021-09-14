@@ -88,6 +88,12 @@
     "laminas/laminas-code": {
         "version": "4.4.2"
     },
+    "n98/junit-xml": {
+        "version": "1.1.0"
+    },
+    "overtrue/phplint": {
+        "version": "3.0.3"
+    },
     "psr/cache": {
         "version": "2.0.0"
     },
@@ -205,6 +211,9 @@
     },
     "symfony/polyfill-php81": {
         "version": "v1.23.0"
+    },
+    "symfony/process": {
+        "version": "v5.3.7"
     },
     "symfony/proxy-manager-bridge": {
         "version": "v5.3.4"
