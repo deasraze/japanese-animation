@@ -23,6 +23,7 @@ docker-build:
 
 api-clear:
 	docker run --rm -v ${CURDIR}/api:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/*'
+	docker run --rm -v ${CURDIR}/api:/app -w /app alpine sh -c 'rm -rf vendor'
 
 api-init: api-composer-install
 
