@@ -33,3 +33,7 @@ api-composer-install:
 
 api-lint:
 	docker-compose run --rm api-php-cli composer lint
+	docker-compose run --rm api-php-cli composer php-cs-fixer fix -- --dry-run --diff
+
+api-cs-fix:
+	docker-compose run --rm api-php-cli composer php-cs-fixer fix
