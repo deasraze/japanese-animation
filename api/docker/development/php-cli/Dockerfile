@@ -4,7 +4,7 @@ ENV XDEBUG_VERSION 3.0.4
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
-RUN apk add --no-cache postgresql-dev unzip git \
+RUN apk add --no-cache postgresql-dev unzip git bash \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && git clone --branch $XDEBUG_VERSION --depth 1 https://github.com/xdebug/xdebug.git /usr/src/php/ext/xdebug \
     && docker-php-ext-configure xdebug --enable-xdebug-dev \

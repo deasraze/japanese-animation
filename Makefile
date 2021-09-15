@@ -6,9 +6,10 @@ init-ci: docker-down-clear \
 up: docker-up
 down: docker-down
 restart: down up
-check: lint analyze
+check: lint analyze validate-schema
 lint: api-lint
 analyze: api-analyze
+validate-schema: api-validate-schema
 
 update-deps: api-composer-update frontend-yarn-upgrade restart
 
@@ -30,13 +31,27 @@ docker-build:
 api-clear:
 	docker run --rm -v ${CURDIR}/api:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/*'
 
-api-init: api-composer-install
+api-init: api-composer-install api-wait-db
 
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
 
 api-composer-update:
 	docker-compose run --rm api-php-cli composer update
+
+api-wait-db:
+	docker-compose run --rm api-php-cli wait-for-it api-postgres:5432 -t 30
+
+api-migrations:
+	docker-compose run --rm api-php-cli bin/console doctrine:migrations:migrate --no-interaction
+
+api-fixtures:
+	docker-compose run --rm api-php-cli bin/console doctrine:fixtures:load --no-interaction
+
+api-check: api-validate-schema api-lint api-analyze
+
+api-validate-schema:
+	docker-compose run --rm api-php-cli bin/console doctrine:schema:validate
 
 api-lint:
 	docker-compose run --rm api-php-cli composer lint
