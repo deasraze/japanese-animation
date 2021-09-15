@@ -12,6 +12,7 @@ class User
     private DateTimeImmutable $date;
     private Email $email;
     private Name $name;
+    private ?string $passwordHash = null;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name)
     {
@@ -21,9 +22,18 @@ class User
         $this->name = $name;
     }
 
-    public static function requestJoinByEmail(Id $id, DateTimeImmutable $date, Email $email, Name $name): self
-    {
-        return new self($id, $date, $email, $name);
+    public static function requestJoinByEmail(
+        Id $id,
+        DateTimeImmutable $date,
+        Email $email,
+        Name $name,
+        string $passwordHash
+    ): self {
+        $user = new self($id, $date, $email, $name);
+
+        $user->passwordHash = $passwordHash;
+
+        return $user;
     }
 
     public function getId(): Id
@@ -44,5 +54,10 @@ class User
     public function getName(): Name
     {
         return $this->name;
+    }
+
+    public function getPasswordHash(): ?string
+    {
+        return $this->passwordHash;
     }
 }

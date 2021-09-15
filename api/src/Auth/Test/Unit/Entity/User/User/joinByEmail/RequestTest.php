@@ -24,11 +24,13 @@ final class RequestTest extends TestCase
             $date = new DateTimeImmutable(),
             $email = new Email('mail@app.test'),
             $name = new Name('nickname'),
+            $hash = 'hash'
         );
 
         self::assertEquals($id, $user->getId());
         self::assertEquals($date, $user->getDate());
         self::assertEquals($email, $user->getEmail());
         self::assertEquals($name, $user->getName());
+        self::assertEquals($hash, $user->getPasswordHash());
     }
 }
