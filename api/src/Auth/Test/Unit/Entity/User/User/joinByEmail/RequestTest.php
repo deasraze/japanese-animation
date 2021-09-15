@@ -27,6 +27,10 @@ final class RequestTest extends TestCase
             $hash = 'hash'
         );
 
+        self::assertFalse($user->isActive());
+        self::assertFalse($user->isBlocked());
+        self::assertTrue($user->isWait());
+
         self::assertEquals($id, $user->getId());
         self::assertEquals($date, $user->getDate());
         self::assertEquals($email, $user->getEmail());
