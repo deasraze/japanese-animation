@@ -73,11 +73,6 @@ class User
         return $this->name;
     }
 
-    public function getStatus(): Status
-    {
-        return $this->status;
-    }
-
     public function getPasswordHash(): ?string
     {
         return $this->passwordHash;
