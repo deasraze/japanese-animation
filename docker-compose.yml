@@ -9,6 +9,28 @@ services:
       - "80:80"
     depends_on:
       - api
+      - frontend
+
+  frontend:
+    build:
+      context: frontend/docker
+      dockerfile: development/nginx/Dockerfile
+    depends_on:
+      - frontend-node
+
+  frontend-node:
+    image: node:16-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && yarn start"
+    tty: true
+
+  frontend-node-cli:
+    image: node:16-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
 
   api:
     build:
