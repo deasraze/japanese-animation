@@ -20,7 +20,7 @@
 
     <testsuites>
         <testsuite name="unit">
-            <directory>src/</directory>
+            <directory>src/Auth/Test</directory>
         </testsuite>
         <testsuite name="functional">
             <directory>tests/Functional</directory>
@@ -31,6 +31,10 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <file>src/Kernel.php</file>
+            <directory>src/Auth/Test</directory>
+        </exclude>
     </coverage>
 
     <listeners>
