@@ -23,7 +23,10 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.1",
         "overtrue/phplint": "^3.0",
+        "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
+        "symfony/browser-kit": "5.3.*",
+        "symfony/phpunit-bridge": "^5.3",
         "symfony/stopwatch": "5.3.*",
         "symfony/web-profiler-bundle": "5.3.*",
         "vimeo/psalm": "^4.10"
@@ -63,7 +66,8 @@
         ],
         "lint": "phplint",
         "php-cs-fixer": "php-cs-fixer --config=.php-cs-fixer.dist.php --allow-risky=yes",
-        "psalm": "psalm --config=psalm.xml"
+        "psalm": "psalm --config=psalm.xml",
+        "test-coverage": "XDEBUG_MODE=coverage bin/phpunit --colors=always --coverage-html var/test/coverage"
     },
     "conflict": {
         "symfony/symfony": "*"

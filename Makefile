@@ -10,6 +10,9 @@ check: lint analyze validate-schema
 lint: api-lint
 analyze: api-analyze
 validate-schema: api-validate-schema
+test: api-test
+test-unit: api-test-unit
+test-functional: api-test-functional
 
 update-deps: api-composer-update frontend-yarn-upgrade restart
 
@@ -65,6 +68,24 @@ api-analyze:
 
 api-analyze-diff:
 	docker-compose run --rm api-php-cli composer psalm
+
+api-test:
+	docker-compose run --rm api-php-cli bin/phpunit
+
+api-test-coverage:
+	docker-compose run --rm api-php-cli composer test-coverage
+
+api-test-unit:
+	docker-compose run --rm api-php-cli bin/phpunit --testsuite=unit
+
+api-test-unit-coverage:
+	docker-compose run --rm api-php-cli composer test-coverage -- --testsuite=unit
+
+api-test-functional:
+	docker-compose run --rm api-php-cli bin/phpunit --testsuite=functional
+
+api-test-functional-coverage:
+	docker-compose run --rm api-php-cli composer test-coverage -- --testsuite=functional
 
 frontend-clear:
 	docker run --rm -v ${CURDIR}/frontend:/app -w /app alpine sh -c 'rm -rf .ready build'
