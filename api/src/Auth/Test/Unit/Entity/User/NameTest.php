@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ * @covers \App\Auth\Entity\User\Name
  */
 final class NameTest extends TestCase
 {
