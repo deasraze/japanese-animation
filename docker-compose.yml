@@ -1,14 +1,21 @@
-version: '3.9'
+version: "3.9"
 
 services:
+  gateway:
+    build:
+      context: gateway/docker
+      dockerfile: development/nginx/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - api
+
   api:
     build:
       context: api/docker
       dockerfile: development/nginx/Dockerfile
     volumes:
       - ./api:/app:ro
-    ports:
-      - "8080:80"
     depends_on:
       - api-php-fpm
 
