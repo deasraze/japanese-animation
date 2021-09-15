@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
+ * @covers \App\Auth\Entity\User\Status
  */
 final class StatusTest extends TestCase
 {
