@@ -86,6 +86,10 @@ class User
 
     public function requestEmailChanging(Email $new, Token $token, DateTimeImmutable $date): void
     {
+        if (!$this->isActive()) {
+            throw new DomainException('User is not active.');
+        }
+
         if ($this->email->isEqualTo($new)) {
             throw new DomainException('Email is already same.');
         }

@@ -39,6 +39,21 @@ final class RequestTest extends TestCase
         self::assertEquals($new, $user->getNewEmail());
     }
 
+    public function testNotActive(): void
+    {
+        $user = (new UserBuilder())->build();
+
+        $now = new DateTimeImmutable();
+        $token = self::createToken($now->modify('+1 day'));
+
+        $this->expectExceptionMessage('User is not active.');
+        $user->requestEmailChanging(
+            new Email('new-email@app.test'),
+            $token,
+            $now
+        );
+    }
+
     public function testSame(): void
     {
         $user = (new UserBuilder())
