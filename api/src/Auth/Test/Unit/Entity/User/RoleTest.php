@@ -16,9 +16,9 @@ final class RoleTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $role = new Role($name = Role::ADMIN);
+        $role = new Role(Role::ADMIN);
 
-        self::assertEquals($name, $role->getName());
+        self::assertTrue($role->isAdmin());
     }
 
     public function testIncorrect(): void
