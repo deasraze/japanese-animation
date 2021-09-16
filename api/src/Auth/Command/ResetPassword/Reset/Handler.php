@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Auth\Command\ResetPassword\Reset;
+
+use App\Auth\Entity\User\UserRepository;
+use App\Auth\Service\PasswordHasher;
+use App\Flusher;
+use DateTimeImmutable;
+use DomainException;
+
+class Handler
+{
+    public function __construct(
+        private UserRepository $users,
+        private PasswordHasher $hasher,
+        private Flusher $flusher
+    ) {
+    }
+
+    public function handle(Command $command): void
+    {
+        $token = $command->token;
+
+        if (!$user = $this->users->findByResetPasswordToken($token)) {
+            throw new DomainException('Token is invalid.');
+        }
+
+        $user->resetPassword(
+            $token,
+            $this->hasher->hash($command->password),
+            new DateTimeImmutable()
+        );
+
+        $this->flusher->flush();
+    }
+}
