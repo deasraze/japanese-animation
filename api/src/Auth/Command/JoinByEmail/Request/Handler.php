@@ -17,21 +17,12 @@ use DomainException;
 
 class Handler
 {
-    private UserRepository $users;
-    private PasswordHasher $hasher;
-    private Tokenizer $tokenizer;
-    private Flusher $flusher;
-
     public function __construct(
-        UserRepository $users,
-        PasswordHasher $hasher,
-        Tokenizer $tokenizer,
-        Flusher $flusher
+        private UserRepository $users,
+        private PasswordHasher $hasher,
+        private Tokenizer $tokenizer,
+        private Flusher $flusher
     ) {
-        $this->users = $users;
-        $this->hasher = $hasher;
-        $this->tokenizer = $tokenizer;
-        $this->flusher = $flusher;
     }
 
     public function handle(Command $command): void

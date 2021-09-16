@@ -11,13 +11,8 @@ use DomainException;
 
 class Handler
 {
-    private UserRepository $users;
-    private Flusher $flusher;
-
-    public function __construct(UserRepository $users, Flusher $flusher)
+    public function __construct(private UserRepository $users, private Flusher $flusher)
     {
-        $this->users = $users;
-        $this->flusher = $flusher;
     }
 
     public function handle(Command $command): void
