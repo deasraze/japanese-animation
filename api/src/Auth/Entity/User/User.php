@@ -79,6 +79,13 @@ class User
         $this->role = $role;
     }
 
+    public function remove(): void
+    {
+        if ($this->isActive()) {
+            throw new DomainException('Unable to remove active user.');
+        }
+    }
+
     public function isActive(): bool
     {
         return $this->status->isActive();
