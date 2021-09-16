@@ -104,6 +104,15 @@ class User
         $this->role = $role;
     }
 
+    public function block(): void
+    {
+        if ($this->isBlocked()) {
+            throw new DomainException('User is already blocked.');
+        }
+
+        $this->status = Status::blocked();
+    }
+
     public function remove(): void
     {
         if ($this->isActive()) {

@@ -44,4 +44,13 @@ final class StatusTest extends TestCase
         self::assertFalse($status->isBlocked());
         self::assertTrue($status->isWait());
     }
+
+    public function testBlocked(): void
+    {
+        $status = Status::blocked();
+
+        self::assertFalse($status->isActive());
+        self::assertFalse($status->isWait());
+        self::assertTrue($status->isBlocked());
+    }
 }

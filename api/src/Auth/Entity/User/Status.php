@@ -35,6 +35,11 @@ class Status
         return new self(self::WAIT);
     }
 
+    public static function blocked(): self
+    {
+        return new self(self::BLOCKED);
+    }
+
     public function isActive(): bool
     {
         return self::ACTIVE === $this->name;
