@@ -7,9 +7,11 @@ namespace App\Auth\Test\Unit\Entity\User\User\joinByEmail;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\Name;
+use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\User;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @internal
@@ -24,7 +26,11 @@ final class RequestTest extends TestCase
             $date = new DateTimeImmutable(),
             $email = new Email('mail@app.test'),
             $name = new Name('nickname'),
-            $hash = 'hash'
+            $hash = 'hash',
+            $token = new Token(
+                Uuid::uuid4()->toString(),
+                new DateTimeImmutable('+1 hour')
+            )
         );
 
         self::assertFalse($user->isActive());
@@ -36,5 +42,6 @@ final class RequestTest extends TestCase
         self::assertEquals($email, $user->getEmail());
         self::assertEquals($name, $user->getName());
         self::assertEquals($hash, $user->getPasswordHash());
+        self::assertEquals($token, $user->getJoinConfirmToken());
     }
 }

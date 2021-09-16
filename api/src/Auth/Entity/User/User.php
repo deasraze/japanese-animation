@@ -12,8 +12,9 @@ class User
     private DateTimeImmutable $date;
     private Email $email;
     private Name $name;
-    private Status $status;
     private ?string $passwordHash = null;
+    private Status $status;
+    private ?Token $joinConfirmToken = null;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name, Status $status)
     {
@@ -29,11 +30,13 @@ class User
         DateTimeImmutable $date,
         Email $email,
         Name $name,
-        string $passwordHash
+        string $passwordHash,
+        Token $token,
     ): self {
         $user = new self($id, $date, $email, $name, Status::wait());
 
         $user->passwordHash = $passwordHash;
+        $user->joinConfirmToken = $token;
 
         return $user;
     }
@@ -76,5 +79,10 @@ class User
     public function getPasswordHash(): ?string
     {
         return $this->passwordHash;
+    }
+
+    public function getJoinConfirmToken(): ?Token
+    {
+        return $this->joinConfirmToken;
     }
 }
