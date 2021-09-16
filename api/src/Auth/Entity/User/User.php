@@ -15,6 +15,7 @@ class User
     private ?string $passwordHash = null;
     private Status $status;
     private ?Token $joinConfirmToken = null;
+    private Role $role;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name, Status $status)
     {
@@ -23,6 +24,7 @@ class User
         $this->email = $email;
         $this->name = $name;
         $this->status = $status;
+        $this->role = Role::user();
     }
 
     public static function requestJoinByEmail(
@@ -84,5 +86,10 @@ class User
     public function getJoinConfirmToken(): ?Token
     {
         return $this->joinConfirmToken;
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
     }
 }

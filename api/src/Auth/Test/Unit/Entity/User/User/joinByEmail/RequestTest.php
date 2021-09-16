@@ -35,7 +35,9 @@ final class RequestTest extends TestCase
 
         self::assertFalse($user->isActive());
         self::assertFalse($user->isBlocked());
+
         self::assertTrue($user->isWait());
+        self::assertTrue($user->getRole()->isUser());
 
         self::assertEquals($id, $user->getId());
         self::assertEquals($date, $user->getDate());
