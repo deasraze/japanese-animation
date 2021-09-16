@@ -102,6 +102,18 @@ class User
         $this->newEmailToken = $token;
     }
 
+    public function confirmEmailChanging(string $token, DateTimeImmutable $date): void
+    {
+        if (null === $this->newEmail || null === $this->newEmailToken) {
+            throw new DomainException('Email changing was not requested.');
+        }
+
+        $this->newEmailToken->validate($token, $date);
+        $this->email = $this->newEmail;
+        $this->newEmail = null;
+        $this->newEmailToken = null;
+    }
+
     public function changePassword(string $current, string $new, PasswordHasher $hasher): void
     {
         if (null === $this->passwordHash) {
