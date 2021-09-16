@@ -17,6 +17,7 @@ class User
     private ?string $passwordHash = null;
     private Status $status;
     private ?Token $joinConfirmToken = null;
+    private ?Token $resetPasswordToken = null;
     private Role $role;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name, Status $status)
@@ -55,6 +56,19 @@ class User
 
         $this->status = Status::active();
         $this->joinConfirmToken = null;
+    }
+
+    public function requestResetPassword(Token $token, DateTimeImmutable $date): void
+    {
+        if (!$this->isActive()) {
+            throw new DomainException('User is not active.');
+        }
+
+        if (null !== $this->resetPasswordToken && !$this->resetPasswordToken->isExpiredTo($date)) {
+            throw new DomainException('Password reset is already requested.');
+        }
+
+        $this->resetPasswordToken = $token;
     }
 
     public function changePassword(string $current, string $new, PasswordHasher $hasher): void
@@ -129,6 +143,11 @@ class User
     public function getJoinConfirmToken(): ?Token
     {
         return $this->joinConfirmToken;
+    }
+
+    public function getResetPasswordToken(): ?Token
+    {
+        return $this->resetPasswordToken;
     }
 
     public function getRole(): Role
