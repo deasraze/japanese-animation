@@ -17,6 +17,7 @@ services:
       dockerfile: development/nginx/Dockerfile
     depends_on:
       - frontend-node
+      - api
 
   frontend-node:
     image: node:16-alpine
