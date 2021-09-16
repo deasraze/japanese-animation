@@ -70,6 +70,15 @@ class User
         $this->passwordHash = $hasher->hash($new);
     }
 
+    public function changeRole(Role $role): void
+    {
+        if ($this->role->isEqualTo($role)) {
+            throw new DomainException('Role is already same.');
+        }
+
+        $this->role = $role;
+    }
+
     public function isActive(): bool
     {
         return $this->status->isActive();

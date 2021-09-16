@@ -28,6 +28,11 @@ class Role
         return new self(self::USER);
     }
 
+    public function isEqualTo(self $other): bool
+    {
+        return $this->getName() === $other->getName();
+    }
+
     public function isUser(): bool
     {
         return $this->name === self::USER;

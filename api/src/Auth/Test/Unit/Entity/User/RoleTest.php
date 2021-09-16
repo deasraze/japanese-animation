@@ -39,4 +39,13 @@ final class RoleTest extends TestCase
 
         self::assertTrue($role->isUser());
     }
+
+    public function testEqual(): void
+    {
+        $roleUser = Role::user();
+        $roleAdmin = new Role(Role::ADMIN);
+
+        self::assertFalse($roleUser->isEqualTo($roleAdmin));
+        self::assertTrue($roleUser->isEqualTo(Role::user()));
+    }
 }
