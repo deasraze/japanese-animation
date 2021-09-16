@@ -71,6 +71,17 @@ class User
         $this->resetPasswordToken = $token;
     }
 
+    public function resetPassword(string $token, string $passwordHash, DateTimeImmutable $date): void
+    {
+        if (null === $this->resetPasswordToken) {
+            throw new DomainException('Reset password was not requested.');
+        }
+
+        $this->resetPasswordToken->validate($token, $date);
+        $this->resetPasswordToken = null;
+        $this->passwordHash = $passwordHash;
+    }
+
     public function changePassword(string $current, string $new, PasswordHasher $hasher): void
     {
         if (null === $this->passwordHash) {
