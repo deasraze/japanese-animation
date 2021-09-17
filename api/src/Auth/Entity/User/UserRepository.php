@@ -21,4 +21,6 @@ interface UserRepository
     public function hasByNickname(Name $name): bool;
 
     public function add(User $user): void;
+
+    public function remove(User $user): void;
 }
