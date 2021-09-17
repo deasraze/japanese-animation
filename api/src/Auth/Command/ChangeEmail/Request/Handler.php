@@ -7,6 +7,7 @@ namespace App\Auth\Command\ChangeEmail\Request;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\UserRepository;
+use App\Auth\Service\NewEmailTokenSender;
 use App\Auth\Service\Tokenizer;
 use App\Flusher;
 use DateTimeImmutable;
@@ -17,6 +18,7 @@ class Handler
     public function __construct(
         private UserRepository $users,
         private Tokenizer $tokenizer,
+        private NewEmailTokenSender $sender,
         private Flusher $flusher
     ) {
     }
@@ -34,10 +36,12 @@ class Handler
 
         $user->requestEmailChanging(
             $email,
-            $this->tokenizer->generate($date),
+            $token = $this->tokenizer->generate($date),
             $date
         );
 
         $this->flusher->flush();
+
+        $this->sender->send($email, $token);
     }
 }

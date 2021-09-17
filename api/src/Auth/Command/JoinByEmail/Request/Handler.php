@@ -9,6 +9,7 @@ use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\Name;
 use App\Auth\Entity\User\User;
 use App\Auth\Entity\User\UserRepository;
+use App\Auth\Service\JoinConfirmationSender;
 use App\Auth\Service\PasswordHasher;
 use App\Auth\Service\Tokenizer;
 use App\Flusher;
@@ -21,6 +22,7 @@ class Handler
         private UserRepository $users,
         private PasswordHasher $hasher,
         private Tokenizer $tokenizer,
+        private JoinConfirmationSender $sender,
         private Flusher $flusher
     ) {
     }
@@ -46,11 +48,13 @@ class Handler
             $email,
             $name,
             $this->hasher->hash($command->password),
-            $this->tokenizer->generate($date)
+            $token = $this->tokenizer->generate($date)
         );
 
         $this->users->add($user);
 
         $this->flusher->flush();
+
+        $this->sender->send($email, $token);
     }
 }
