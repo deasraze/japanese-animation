@@ -10,6 +10,7 @@ services:
     depends_on:
       - api
       - frontend
+      - mailer
 
   frontend:
     build:
@@ -75,6 +76,9 @@ services:
       - api-postgres:/var/lib/postgresql/data
     ports:
       - "54321:5432"
+
+  mailer:
+    image: mailhog/mailhog
 
 volumes:
   api-postgres:
