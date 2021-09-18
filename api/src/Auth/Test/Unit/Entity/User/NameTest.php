@@ -30,14 +30,6 @@ final class NameTest extends TestCase
         self::assertEquals($upper, $name->getNickname());
     }
 
-    public function testSpace(): void
-    {
-        $nickname = 'nickname';
-        $name = new Name(' '.$nickname.'  ');
-
-        self::assertEquals($nickname, $name->getNickname());
-    }
-
     /**
      * @dataProvider getCases
      */
@@ -56,6 +48,7 @@ final class NameTest extends TestCase
             'short' => ['nic'],
             'large' => ['There are many variations of passages of Lorem Ipsum available'],
             'symbols' => ['nick@na\/me**'],
+            'spaces' => ['nick na  me'],
         ];
     }
 }

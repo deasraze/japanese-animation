@@ -12,8 +12,6 @@ class Name
 
     public function __construct(string $nickname)
     {
-        $nickname = str_replace(' ', '', $nickname);
-
         Assert::lengthBetween($nickname, 4, 20);
         Assert::alnum($nickname);
 
