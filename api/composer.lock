@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "535102fc4fd12c515a903e12e6b6f688",
+    "content-hash": "68a1c027aee4eb345ba9f2ba121491a8",
     "packages": [
         {
             "name": "brick/math",
@@ -7204,6 +7204,70 @@
                 "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.16.1"
             },
             "time": "2021-06-18T23:56:46+00:00"
+        },
+        {
+            "name": "psalm/plugin-symfony",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psalm/psalm-plugin-symfony.git",
+                "reference": "7b19393d11204e63a1c4b3cdee8585aa72a0ea70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-symfony/zipball/7b19393d11204e63a1c4b3cdee8585aa72a0ea70",
+                "reference": "7b19393d11204e63a1c4b3cdee8585aa72a0ea70",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "php": "^7.1 || ^8.0",
+                "symfony/framework-bundle": "^4.0 || ^5.0",
+                "vimeo/psalm": "^4.9"
+            },
+            "require-dev": {
+                "doctrine/orm": "^2.7",
+                "phpunit/phpunit": "~7.5 || ~9.5",
+                "symfony/cache-contracts": "^1.0 || ^2.0",
+                "symfony/console": "*",
+                "symfony/form": "^4.0 || ^5.0",
+                "symfony/messenger": "^4.2 || ^5.0",
+                "symfony/security-guard": "^4.0 || ^5.0",
+                "symfony/serializer": "^4.0 || ^5.0",
+                "symfony/validator": "*",
+                "twig/twig": "^2.10 || ^3.0",
+                "weirdan/codeception-psalm-module": "^0.13.1"
+            },
+            "suggest": {
+                "weirdan/doctrine-psalm-plugin": "If Doctrine is used, it is recommended install this plugin"
+            },
+            "type": "psalm-plugin",
+            "extra": {
+                "psalm": {
+                    "pluginClass": "Psalm\\SymfonyPsalmPlugin\\Plugin"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psalm\\SymfonyPsalmPlugin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Farhad Safarov",
+                    "email": "farhad.safarov@gmail.com"
+                }
+            ],
+            "description": "Psalm Plugin for Symfony",
+            "support": {
+                "issues": "https://github.com/psalm/psalm-plugin-symfony/issues",
+                "source": "https://github.com/psalm/psalm-plugin-symfony/tree/v3.0.3"
+            },
+            "time": "2021-09-06T15:39:00+00:00"
         },
         {
             "name": "sebastian/cli-parser",
