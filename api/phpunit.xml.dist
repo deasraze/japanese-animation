@@ -35,6 +35,7 @@
         <exclude>
             <file>src/Kernel.php</file>
             <directory>src/Auth/Test</directory>
+            <directory>src/Frontend/Test</directory>
         </exclude>
     </coverage>
 
