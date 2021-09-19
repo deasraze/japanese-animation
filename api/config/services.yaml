@@ -26,3 +26,7 @@ services:
     App\Frontend\FrontendUrlGenerator:
         arguments:
             - '%env(FRONTEND_URL)%'
+
+    App\Auth\Service\Tokenizer:
+        factory: ['App\Container\Auth\Service\TokenizerFactory', 'create']
+        arguments: ['PT1H']
