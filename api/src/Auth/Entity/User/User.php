@@ -6,20 +6,59 @@ namespace App\Auth\Entity\User;
 
 use App\Auth\Service\PasswordHasher;
 use DateTimeImmutable;
+use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="auth_user")
+ */
 class User
 {
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="auth_user_id")
+     */
     private Id $id;
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
     private DateTimeImmutable $date;
+    /**
+     * @ORM\Column(type="auth_user_email", unique=true)
+     */
     private Email $email;
+    /**
+     * @ORM\Embedded(class="Name")
+     */
     private Name $name;
+    /**
+     * @ORM\Column(type="auth_user_status", length=16)
+     */
     private Status $status;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     private ?string $passwordHash = null;
+    /**
+     * @ORM\Embedded(class="Token")
+     */
     private ?Token $joinConfirmToken = null;
+    /**
+     * @ORM\Embedded(class="Token")
+     */
     private ?Token $resetPasswordToken = null;
+    /**
+     * @ORM\Column(type="auth_user_email", nullable=true)
+     */
     private ?Email $newEmail = null;
+    /**
+     * @ORM\Embedded(class="Token")
+     */
     private ?Token $newEmailToken = null;
+    /**
+     * @ORM\Column(type="auth_user_role", length=16)
+     */
     private Role $role;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name, Status $status)
