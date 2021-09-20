@@ -10,7 +10,6 @@
          cacheResultFile="var/cache/.phpunit.result.cache"
 >
     <php>
-        <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
@@ -22,6 +21,7 @@
         <testsuite name="unit">
             <directory>src/Auth/Test</directory>
             <directory>src/Frontend/Test</directory>
+            <directory>src/Http/Test</directory>
         </testsuite>
         <testsuite name="functional">
             <directory>tests/Functional</directory>
@@ -36,6 +36,7 @@
             <file>src/Kernel.php</file>
             <directory>src/Auth/Test</directory>
             <directory>src/Frontend/Test</directory>
+            <directory>src/Http/Test</directory>
         </exclude>
     </coverage>
 
