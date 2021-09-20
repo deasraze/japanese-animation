@@ -16,8 +16,11 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/Container/'
+            - '../src/Auth/Entity/'
+            - '../src/Auth/Test/'
+            - '../src/Frontend/Test/'
+            - '../src/Http/Test/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 
