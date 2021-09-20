@@ -11,6 +11,7 @@ use DomainException;
 
 /**
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  * @ORM\Table(name="auth_user")
  */
 class User
@@ -254,5 +255,23 @@ class User
     public function getRole(): Role
     {
         return $this->role;
+    }
+
+    /**
+     * @ORM\PostLoad
+     */
+    public function checkEmbeds(): void
+    {
+        if (null !== $this->joinConfirmToken && $this->joinConfirmToken->isEmpty()) {
+            $this->joinConfirmToken = null;
+        }
+
+        if (null !== $this->resetPasswordToken && $this->resetPasswordToken->isEmpty()) {
+            $this->resetPasswordToken = null;
+        }
+
+        if (null !== $this->newEmailToken && $this->newEmailToken->isEmpty()) {
+            $this->newEmailToken = null;
+        }
     }
 }

@@ -57,6 +57,14 @@ class Token
         return $this->expires;
     }
 
+    /**
+     * @internal
+     */
+    public function isEmpty(): bool
+    {
+        return empty($this->value);
+    }
+
     private function isEqualTo(string $value): bool
     {
         return $this->value === $value;
