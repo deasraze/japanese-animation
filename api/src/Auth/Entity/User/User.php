@@ -12,7 +12,7 @@ use DomainException;
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
- * @ORM\Table(name="auth_user")
+ * @ORM\Table(name="auth_users")
  */
 class User
 {
