@@ -22,6 +22,7 @@
             <directory>src/Auth/Test</directory>
             <directory>src/Frontend/Test</directory>
             <directory>src/Http/Test</directory>
+            <directory>src/Validator/Test</directory>
         </testsuite>
         <testsuite name="functional">
             <directory>tests/Functional</directory>
@@ -37,6 +38,7 @@
             <directory>src/Auth/Test</directory>
             <directory>src/Frontend/Test</directory>
             <directory>src/Http/Test</directory>
+            <directory>src/Validator/Test</directory>
         </exclude>
     </coverage>
 
