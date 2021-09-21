@@ -12,7 +12,6 @@ use App\Auth\Entity\User\User;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Ramsey\Uuid\Uuid;
 
 class UserJoinConfirmFixture extends Fixture
 {
@@ -22,23 +21,23 @@ class UserJoinConfirmFixture extends Fixture
     public function load(ObjectManager $manager): void
     {
         $user = User::requestJoinByEmail(
-            new Id('00000000-0000-0000-0000-200000000001'),
+            Id::generate(),
             new DateTimeImmutable('-1 hours'),
             new Email('join-wait-active@app.test'),
             new Name('JoinWaitActive'),
             self::HASH,
-            new Token(Uuid::uuid4()->toString(), new DateTimeImmutable('+1 hours'))
+            new Token('00000000-0000-0000-0000-200000000001', new DateTimeImmutable('+1 hours'))
         );
 
         $manager->persist($user);
 
         $user = User::requestJoinByEmail(
-            new Id('00000000-0000-0000-0000-200000000002'),
+            Id::generate(),
             new DateTimeImmutable('-2 hours'),
             new Email('join-wait-expired@app.test'),
             new Name('JoinWaitExpired'),
             self::HASH,
-            new Token(Uuid::uuid4()->toString(), new DateTimeImmutable('-2 hours'))
+            new Token('00000000-0000-0000-0000-200000000002', new DateTimeImmutable('-2 hours'))
         );
 
         $manager->persist($user);
