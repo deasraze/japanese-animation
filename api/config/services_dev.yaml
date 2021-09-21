@@ -1,0 +1,7 @@
+services:
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+
+  App\Auth\Fixture\:
+    resource: '../src/Auth/Fixture/**/*Fixture.php'
+    tags: ['doctrine.fixture.orm']

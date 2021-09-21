@@ -34,7 +34,7 @@ docker-build:
 api-clear:
 	docker run --rm -v ${CURDIR}/api:/app -w /app alpine sh -c 'rm -rf var/cache/* var/log/*'
 
-api-init: api-composer-install api-wait-db api-migrations
+api-init: api-composer-install api-wait-db api-migrations api-fixtures
 
 api-composer-install:
 	docker-compose run --rm api-php-cli composer install
