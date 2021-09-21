@@ -24,11 +24,13 @@ class UserJoinFixture extends Fixture
             Id::generate(),
             new DateTimeImmutable('-1 hours'),
             new Email('join-existing@app.test'),
-            new Name('JoinWaitActive'),
+            new Name('JoinExisting'),
             self::HASH,
             new Token('00000000-0000-0000-0000-100000000001', new DateTimeImmutable('+1 hours'))
         );
 
         $manager->persist($user);
+
+        $manager->flush();
     }
 }

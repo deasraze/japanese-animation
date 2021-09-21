@@ -48,5 +48,7 @@ class UserFixture extends Fixture
         $user->confirmJoin($value, $date);
 
         $manager->persist($user);
+
+        $manager->flush();
     }
 }
