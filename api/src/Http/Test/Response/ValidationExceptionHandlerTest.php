@@ -30,7 +30,7 @@ final class ValidationExceptionHandlerTest extends TestCase
 
         $event = new ExceptionEvent(
             $this->createStub(HttpKernelInterface::class),
-            new Request(),
+            Request::create('/test'),
             HttpKernelInterface::MAIN_REQUEST,
             new ValidatorException($violations),
         );
@@ -57,7 +57,7 @@ final class ValidationExceptionHandlerTest extends TestCase
     {
         $event = new ExceptionEvent(
             $this->createStub(HttpKernelInterface::class),
-            new Request(),
+            Request::create('/test'),
             HttpKernelInterface::MAIN_REQUEST,
             new DomainException(),
         );

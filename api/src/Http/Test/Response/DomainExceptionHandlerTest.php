@@ -27,7 +27,7 @@ final class DomainExceptionHandlerTest extends TestCase
 
         $event = new ExceptionEvent(
             $this->createStub(HttpKernelInterface::class),
-            new Request(),
+            Request::create('/test'),
             HttpKernelInterface::MAIN_REQUEST,
             new DomainException($message = 'Some error')
         );
@@ -52,7 +52,7 @@ final class DomainExceptionHandlerTest extends TestCase
 
         $event = new ExceptionEvent(
             $this->createStub(HttpKernelInterface::class),
-            new Request(),
+            Request::create('/test'),
             HttpKernelInterface::MAIN_REQUEST,
             new RuntimeException('Some error')
         );
