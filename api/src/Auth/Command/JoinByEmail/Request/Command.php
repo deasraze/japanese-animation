@@ -19,10 +19,7 @@ class Command
      */
     public string $nickname = '';
     /**
-     * @Assert\AtLeastOneOf({
-     *     @Assert\NotBlank,
-     *     @Assert\Length(min=8)
-     * })
+     * @Assert\Length(min=8)
      */
     public string $password = '';
 }
