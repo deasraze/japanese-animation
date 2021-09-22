@@ -4,6 +4,13 @@ controllers:
     defaults:
         _format: json
 
+v1:
+    resource: ../../src/Http/Action/V1/
+    type: annotation
+    prefix: /v1
+    defaults:
+        _format: json
+
 kernel:
     resource: ../../src/Kernel.php
     type: annotation
