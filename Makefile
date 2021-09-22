@@ -10,9 +10,9 @@ check: lint analyze validate-schema test
 lint: api-lint
 analyze: api-analyze
 validate-schema: api-validate-schema
-test: api-test
+test: api-test-init api-test
 test-unit: api-test-unit
-test-functional: api-test-functional
+test-functional: api-test-init api-test-functional
 
 update-deps: api-composer-update frontend-yarn-upgrade restart
 
@@ -71,6 +71,12 @@ api-analyze:
 
 api-analyze-diff:
 	docker-compose run --rm api-php-cli composer psalm
+
+api-test-init:
+	docker-compose run --rm api-php-cli bin/console --env=test doctrine:database:drop --if-exists --force -n
+	docker-compose run --rm api-php-cli bin/console --env=test doctrine:database:create --if-not-exists -n
+	docker-compose run --rm api-php-cli bin/console --env=test doctrine:schema:update -f -n
+	docker-compose run --rm api-php-cli bin/console --env=test doctrine:fixtures:load -n
 
 api-test:
 	docker-compose run --rm api-php-cli bin/phpunit
