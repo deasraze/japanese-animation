@@ -17,6 +17,9 @@
     "composer/xdebug-handler": {
         "version": "2.0.2"
     },
+    "dms/phpunit-arraysubset-asserts": {
+        "version": "v0.3.0"
+    },
     "dnoegel/php-xdg-base-dir": {
         "version": "v0.1.1"
     },
