@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\V1\Auth\Join;
 
-use App\Tests\Functional\WebTestCase;
 use App\Tests\Functional\Json;
+use App\Tests\Functional\WebTestCase;
 use Ramsey\Uuid\Uuid;
 
 /**
