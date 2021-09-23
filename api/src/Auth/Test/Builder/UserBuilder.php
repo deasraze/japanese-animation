@@ -41,6 +41,15 @@ class UserBuilder
         return $clone;
     }
 
+    public function withName(Name $name): self
+    {
+        $clone = clone $this;
+
+        $clone->name = $name;
+
+        return $clone;
+    }
+
     public function withJoinConfirmToken(Token $token): self
     {
         $clone = clone $this;
