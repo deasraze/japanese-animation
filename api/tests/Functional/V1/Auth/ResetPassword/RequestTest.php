@@ -78,4 +78,40 @@ final class RequestTest extends WebTestCase
             'message' => 'User is not active.',
         ], $data);
     }
+
+    public function testEmpty(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, content: Json::encode([]));
+
+        self::assertResponseStatusCodeSame(422);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'errors' => [
+                'email' => 'This value should not be blank.',
+            ],
+        ], $data);
+    }
+
+    public function testNotValid(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, content: Json::encode([
+            'email' => 'not-email',
+        ]));
+
+        self::assertResponseStatusCodeSame(422);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'errors' => [
+                'email' => 'This value is not a valid email address.',
+            ],
+        ], $data);
+    }
 }
