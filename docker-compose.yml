@@ -9,7 +9,7 @@ services:
       - "80:80"
     depends_on:
       - api
-      - frontend
+    #  - frontend
       - mailer
 
   frontend:
@@ -19,6 +19,8 @@ services:
     depends_on:
       - frontend-node
       - api
+    profiles:
+      - "disabled"
 
   frontend-node:
     image: node:16-alpine
@@ -27,12 +29,16 @@ services:
       - ./frontend:/app
     command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && yarn start"
     tty: true
+    profiles:
+      - "disabled"
 
   frontend-node-cli:
     image: node:16-alpine
     working_dir: /app
     volumes:
       - ./frontend:/app
+    profiles:
+      - "disabled"
 
   api:
     build:

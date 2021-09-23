@@ -1,5 +1,8 @@
-init: init-ci frontend-ready
-init-ci: docker-down-clear \
+init: init-ci #frontend-ready
+init-ci: docker-down-clear api-clear \
+	docker-pull docker-build docker-up \
+	api-init api-test-init
+#init-ci: docker-down-clear \
 	api-clear frontend-clear \
 	docker-pull docker-build docker-up \
 	api-init frontend-init \
@@ -15,7 +18,7 @@ test: api-test-init api-test
 test-unit: api-test-unit
 test-functional: api-test-init api-test-functional
 
-update-deps: api-composer-update frontend-yarn-upgrade restart
+update-deps: api-composer-update restart #frontend-yarn-upgrade restart
 
 docker-up:
 	docker-compose up -d
