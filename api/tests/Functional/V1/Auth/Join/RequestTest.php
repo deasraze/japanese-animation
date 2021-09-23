@@ -4,47 +4,55 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\V1\Auth\Join;
 
-use App\Tests\Functional\DbWebTestCase;
 use App\Tests\Functional\Json;
+use App\Tests\Functional\WebTestCase;
 
 /**
  * @internal
- * @psalm-suppress MissingConstructor
  */
-final class RequestTest extends DbWebTestCase
+final class RequestTest extends WebTestCase
 {
     private const URI = '/v1/auth/join';
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->loadFixtures([
+            RequestFixture::class,
+        ]);
+    }
+
     public function testMethod(): void
     {
-        $this->client->request('GET', self::URI);
+        $this->client()->request('GET', self::URI);
 
         self::assertResponseStatusCodeSame(405);
     }
 
     public function testSuccess(): void
     {
-        $this->client->request('POST', self::URI, content: Json::encode([
+        $this->client()->request('POST', self::URI, content: Json::encode([
             'email' => 'test-user@app.test',
             'nickname' => 'TestUser',
             'password' => 'password-hash',
         ]));
 
         self::assertResponseStatusCodeSame(201);
-        self::assertJson($body = (string) $this->client->getResponse()->getContent());
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([], Json::decode($body));
     }
 
     public function testEmailExisting(): void
     {
-        $this->client->request('POST', self::URI, content: Json::encode([
+        $this->client()->request('POST', self::URI, content: Json::encode([
             'email' => 'existing@app.test',
             'nickname' => 'TestUser',
             'password' => 'password-hash',
         ]));
 
         self::assertResponseStatusCodeSame(409);
-        self::assertJson($body = (string) $this->client->getResponse()->getContent());
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'message' => 'Email is already used.',
         ], Json::decode($body));
@@ -52,14 +60,14 @@ final class RequestTest extends DbWebTestCase
 
     public function testNicknameExisting(): void
     {
-        $this->client->request('POST', self::URI, content: Json::encode([
+        $this->client()->request('POST', self::URI, content: Json::encode([
             'email' => 'test-user@app.test',
             'nickname' => 'existing',
             'password' => 'password-hash',
         ]));
 
         self::assertResponseStatusCodeSame(409);
-        self::assertJson($body = (string) $this->client->getResponse()->getContent());
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'message' => 'Nickname is already used.',
         ], Json::decode($body));
@@ -67,14 +75,14 @@ final class RequestTest extends DbWebTestCase
 
     public function testNotValid(): void
     {
-        $this->client->request('POST', self::URI, content: Json::encode([
+        $this->client()->request('POST', self::URI, content: Json::encode([
             'email' => 'not-email',
             'nickname' => 'inv@alid*',
             'password' => 'short',
         ]));
 
         self::assertResponseStatusCodeSame(422);
-        self::assertJson($body = (string) $this->client->getResponse()->getContent());
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
                 'email' => 'This value is not a valid email address.',
@@ -86,10 +94,10 @@ final class RequestTest extends DbWebTestCase
 
     public function testEmpty(): void
     {
-        $this->client->request('POST', self::URI, content: Json::encode([]));
+        $this->client()->request('POST', self::URI, content: Json::encode([]));
 
         self::assertResponseStatusCodeSame(422);
-        self::assertJson($body = (string) $this->client->getResponse()->getContent());
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
                 'email' => 'This value should not be blank.',
