@@ -1,0 +1,31 @@
+name: Pipeline
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache API Composer
+        uses: actions/cache@v2
+        with:
+          path: api/vendor
+          key: api-composer-${{ hashFiles('**/composer.lock') }}
+
+      - name: Dev Init
+        run: make init
+
+      - name: Validate Schema
+        run: make api-validate-schema
+
+      - name: Lint API
+        run: make api-lint
+
+      - name: Analyze API
+        run: make api-analyze
+
+      - name: Test API
+        run: make api-test
