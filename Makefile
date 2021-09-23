@@ -2,7 +2,8 @@ init: init-ci frontend-ready
 init-ci: docker-down-clear \
 	api-clear frontend-clear \
 	docker-pull docker-build docker-up \
-	api-init frontend-init
+	api-init frontend-init \
+	api-test-init
 up: docker-up
 down: docker-down
 restart: down up
@@ -76,7 +77,6 @@ api-test-init:
 	docker-compose run --rm api-php-cli bin/console --env=test doctrine:database:drop --if-exists --force -n
 	docker-compose run --rm api-php-cli bin/console --env=test doctrine:database:create --if-not-exists -n
 	docker-compose run --rm api-php-cli bin/console --env=test doctrine:schema:update -f -n
-	docker-compose run --rm api-php-cli bin/console --env=test doctrine:fixtures:load -n
 
 api-test:
 	docker-compose run --rm api-php-cli bin/phpunit
