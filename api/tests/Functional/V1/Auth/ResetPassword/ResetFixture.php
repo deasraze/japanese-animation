@@ -19,6 +19,8 @@ class ResetFixture extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+        $date = new DateTimeImmutable();
+
         $user = (new UserBuilder())
             ->withEmail(new Email('valid@app.test'))
             ->withName(new Name('valid'))
@@ -26,8 +28,8 @@ class ResetFixture extends Fixture
             ->build();
 
         $user->requestResetPassword(
-            new Token(self::VALID, new DateTimeImmutable('+1 hour')),
-            new DateTimeImmutable()
+            new Token(self::VALID, $date->modify('+1 hour')),
+            $date
         );
 
         $manager->persist($user);
@@ -39,8 +41,8 @@ class ResetFixture extends Fixture
             ->build();
 
         $user->requestResetPassword(
-            new Token(self::EXPIRED, new DateTimeImmutable('-1 hour')),
-            new DateTimeImmutable()
+            new Token(self::EXPIRED, $date->modify('-1 hour')),
+            $date
         );
 
         $manager->persist($user);
