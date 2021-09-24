@@ -3239,16 +3239,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.15.4",
+            "version": "v1.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "9a22ef2a75609a4d3717db784d923a7a6b347bc5"
+                "reference": "701891891209e70fb60e5ff3a5cd62216d66d7ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/9a22ef2a75609a4d3717db784d923a7a6b347bc5",
-                "reference": "9a22ef2a75609a4d3717db784d923a7a6b347bc5",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/701891891209e70fb60e5ff3a5cd62216d66d7ab",
+                "reference": "701891891209e70fb60e5ff3a5cd62216d66d7ab",
                 "shasum": ""
             },
             "require": {
@@ -3259,13 +3259,13 @@
                 "composer/composer": "^1.0.2|^2.0",
                 "symfony/dotenv": "^4.4|^5.0",
                 "symfony/filesystem": "^4.4|^5.0",
-                "symfony/phpunit-bridge": "^4.4|^5.0",
+                "symfony/phpunit-bridge": "^4.4.12|^5.0",
                 "symfony/process": "^3.4|^4.4|^5.0"
             },
             "type": "composer-plugin",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.13-dev"
+                    "dev-main": "1.16-dev"
                 },
                 "class": "Symfony\\Flex\\Flex"
             },
@@ -3287,7 +3287,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v1.15.4"
+                "source": "https://github.com/symfony/flex/tree/v1.16.1"
             },
             "funding": [
                 {
@@ -3303,7 +3303,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-13T14:49:33+00:00"
+            "time": "2021-09-23T14:52:29+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -5851,16 +5851,16 @@
     "packages-dev": [
         {
             "name": "amphp/amp",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "caa95edeb1ca1bf7532e9118ede4a3c3126408cc"
+                "reference": "c5fc66a78ee38d7ac9195a37bacaf940eb3f65ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/amphp/amp/zipball/caa95edeb1ca1bf7532e9118ede4a3c3126408cc",
-                "reference": "caa95edeb1ca1bf7532e9118ede4a3c3126408cc",
+                "url": "https://api.github.com/repos/amphp/amp/zipball/c5fc66a78ee38d7ac9195a37bacaf940eb3f65ae",
+                "reference": "c5fc66a78ee38d7ac9195a37bacaf940eb3f65ae",
                 "shasum": ""
             },
             "require": {
@@ -5928,7 +5928,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/amphp",
                 "issues": "https://github.com/amphp/amp/issues",
-                "source": "https://github.com/amphp/amp/tree/v2.6.0"
+                "source": "https://github.com/amphp/amp/tree/v2.6.1"
             },
             "funding": [
                 {
@@ -5936,7 +5936,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-07-16T20:06:06+00:00"
+            "time": "2021-09-23T18:43:08+00:00"
         },
         {
             "name": "amphp/byte-stream",
