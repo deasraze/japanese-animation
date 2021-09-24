@@ -30,6 +30,7 @@
         "dms/phpunit-arraysubset-asserts": "^0.3.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "friendsofphp/php-cs-fixer": "^3.1",
+        "guzzlehttp/guzzle": "^7.3",
         "overtrue/phplint": "^3.0",
         "phpunit/phpunit": "^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
