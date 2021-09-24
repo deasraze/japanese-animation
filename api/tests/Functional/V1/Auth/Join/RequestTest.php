@@ -32,6 +32,8 @@ final class RequestTest extends WebTestCase
 
     public function testSuccess(): void
     {
+        $this->mailer()->clear();
+
         $this->client()->request('POST', self::URI, content: Json::encode([
             'email' => 'test-user@app.test',
             'nickname' => 'TestUser',
@@ -41,6 +43,8 @@ final class RequestTest extends WebTestCase
         self::assertResponseStatusCodeSame(201);
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([], Json::decode($body));
+
+        self::assertTrue($this->mailer()->hasEmailSentTo('test-user@app.test'));
     }
 
     public function testEmailExisting(): void
