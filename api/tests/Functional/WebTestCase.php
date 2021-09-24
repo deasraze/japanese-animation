@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 abstract class WebTestCase extends BaseWebTestCase
 {
     private ?KernelBrowser $client = null;
+    private ?MailerClient $mailer = null;
 
     protected function tearDown(): void
     {
@@ -30,6 +31,15 @@ abstract class WebTestCase extends BaseWebTestCase
         }
 
         return $this->client;
+    }
+
+    protected function mailer(): MailerClient
+    {
+        if (null === $this->mailer) {
+            $this->mailer = new MailerClient();
+        }
+
+        return $this->mailer;
     }
 
     /**
