@@ -1,7 +1,7 @@
 init: init-ci #frontend-ready
 init-ci: docker-down-clear api-clear \
 	docker-pull docker-build docker-up \
-	api-init api-test-init
+	api-init
 #init-ci: docker-down-clear \
 	api-clear frontend-clear \
 	docker-pull docker-build docker-up \
