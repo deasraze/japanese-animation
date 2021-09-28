@@ -81,7 +81,7 @@ api-test-init:
 	docker-compose run --rm api-php-cli bin/console --env=test doctrine:database:create --if-not-exists -n
 	docker-compose run --rm api-php-cli bin/console --env=test doctrine:schema:update -f -n
 
-api-test:
+api-test: api-test-init
 	docker-compose run --rm api-php-cli bin/phpunit
 
 api-test-coverage:
