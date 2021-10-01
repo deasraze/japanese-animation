@@ -11,9 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/auth/password/reset", name=RequestAction::class, methods={"POST"})
- */
+#[Route('/auth/password/reset', name: self::class, methods: ['POST'])]
 class RequestAction extends AbstractController
 {
     public function __invoke(Validator $validator, Handler $handler, Command $command): Response

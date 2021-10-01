@@ -17,7 +17,7 @@ doctrine:
         mappings:
             Auth:
                 is_bundle: false
-                type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Auth/Entity'
                 prefix: 'App\Auth\Entity'
                 alias: Auth

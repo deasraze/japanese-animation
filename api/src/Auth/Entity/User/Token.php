@@ -9,18 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 use Webmozart\Assert\Assert;
 
-/**
- * @ORM\Embeddable
- */
+#[ORM\Embeddable]
 class Token
 {
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
+    #[ORM\Column(type: 'string', nullable: true)]
     private string $value;
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private DateTimeImmutable $expires;
 
     public function __construct(string $value, DateTimeImmutable $expires)

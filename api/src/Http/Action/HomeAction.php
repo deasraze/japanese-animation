@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/", name=HomeAction::class, methods={"GET"})
- */
+#[Route('/', name: self::class, methods: ['GET'])]
 class HomeAction
 {
     public function __invoke(): Response

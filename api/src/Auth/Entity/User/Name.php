@@ -7,14 +7,10 @@ namespace App\Auth\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Webmozart\Assert\Assert;
 
-/**
- * @ORM\Embeddable
- */
+#[ORM\Embeddable]
 class Name
 {
-    /**
-     * @ORM\Column(type="string", length=20, unique=true)
-     */
+    #[ORM\Column(type: 'string', length: 20, unique: true)]
     private string $nickname;
 
     public function __construct(string $nickname)
