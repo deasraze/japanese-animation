@@ -59,6 +59,7 @@ services:
       FRONTEND_URL: http://localhost
       MAILER_FROM_EMAIL: mail@app.test
       MAILER_DSN: smtp://mailer:1025
+      JWT_PASSPHRASE: secret
     volumes:
       - ./api:/app
     depends_on:
@@ -73,6 +74,7 @@ services:
       FRONTEND_URL: http://localhost
       MAILER_FROM_EMAIL: mail@app.test
       MAILER_DSN: smtp://mailer:1025
+      JWT_PASSPHRASE: secret
     volumes:
       - ./api:/app
     depends_on:
