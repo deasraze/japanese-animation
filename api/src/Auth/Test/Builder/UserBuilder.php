@@ -50,6 +50,15 @@ class UserBuilder
         return $clone;
     }
 
+    public function withPasswordHash(string $hash): self
+    {
+        $clone = clone $this;
+
+        $clone->passwordHash = $hash;
+
+        return $clone;
+    }
+
     public function withJoinConfirmToken(Token $token): self
     {
         $clone = clone $this;
