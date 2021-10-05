@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Query\FindIdentityByEmail;
 
+use App\Auth\Entity\User\Status;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 
@@ -21,6 +22,7 @@ class Fetcher
                 'id',
                 'email',
                 'password_hash',
+                'status',
                 'role',
             ])
             ->from('auth_users')
@@ -33,6 +35,7 @@ class Fetcher
          *     id: string,
          *     email: string,
          *     password_hash: string,
+         *     status: string,
          *     role: string,
          * }|false
          */
@@ -47,6 +50,7 @@ class Fetcher
             $row['email'],
             $row['password_hash'],
             $row['role'],
+            $row['status'] === Status::ACTIVE
         );
     }
 }

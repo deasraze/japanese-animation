@@ -13,7 +13,8 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
         private string $id,
         private string $username,
         private string $password,
-        private string $role
+        private string $role,
+        private bool $isActive
     ) {
     }
 
@@ -35,6 +36,11 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         return [$this->role];
+    }
+
+    public function isActive(): bool
+    {
+        return $this->isActive;
     }
 
     public function getSalt()

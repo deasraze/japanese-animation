@@ -10,7 +10,8 @@ class Identity
         public string $id,
         public string $email,
         public string $passwordHash,
-        public string $role
+        public string $role,
+        public bool $isActive
     ) {
     }
 }

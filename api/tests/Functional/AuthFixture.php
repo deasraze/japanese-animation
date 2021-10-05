@@ -17,6 +17,11 @@ class AuthFixture extends Fixture
         return 'auth-user@app.test';
     }
 
+    public static function waitUserIdentifier(): string
+    {
+        return 'auth-wait-user@app.test';
+    }
+
     public function load(ObjectManager $manager): void
     {
         $user = (new UserBuilder())
@@ -25,7 +30,13 @@ class AuthFixture extends Fixture
             ->withPasswordHash('$2y$13$p4xY4/WymQSlBxWMOzthR.YoQbNuEXYKVWRC4WRvEbbPrh3yFDZLO') // password
             ->active()
             ->build();
+        $manager->persist($user);
 
+        $user = (new UserBuilder())
+            ->withEmail(new Email('auth-wait-user@app.test'))
+            ->withName(new Name('AuthWaitUser'))
+            ->withPasswordHash('$2y$13$p4xY4/WymQSlBxWMOzthR.YoQbNuEXYKVWRC4WRvEbbPrh3yFDZLO') // password
+            ->build();
         $manager->persist($user);
 
         $manager->flush();

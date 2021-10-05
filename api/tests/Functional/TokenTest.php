@@ -47,6 +47,18 @@ final class TokenTest extends WebTestCase
         self::assertNotEmpty($data['token']);
     }
 
+    public function testWaitUser(): void
+    {
+        $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
+            'username' => AuthFixture::waitUserIdentifier(),
+            'password' => 'password',
+        ]));
+
+        $this->assertResponseStatusCodeSame(401);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertStringContainsString('Your account is not active.', $body);
+    }
+
     public function testInvalidUser(): void
     {
         $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
