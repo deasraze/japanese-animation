@@ -10,31 +10,31 @@ use App\Auth\Test\Builder\UserBuilder;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AuthFixture extends Fixture
+class TokenFixture extends Fixture
 {
-    public static function userIdentifier(): string
+    public static function activeUserIdentifier(): string
     {
-        return 'auth-user@app.test';
+        return 'active-user@app.test';
     }
 
     public static function waitUserIdentifier(): string
     {
-        return 'auth-wait-user@app.test';
+        return 'wait-user@app.test';
     }
 
     public function load(ObjectManager $manager): void
     {
         $user = (new UserBuilder())
-            ->withEmail(new Email('auth-user@app.test'))
-            ->withName(new Name('AuthUser'))
+            ->withEmail(new Email('active-user@app.test'))
+            ->withName(new Name('ActiveUser'))
             ->withPasswordHash('$2y$13$p4xY4/WymQSlBxWMOzthR.YoQbNuEXYKVWRC4WRvEbbPrh3yFDZLO') // password
             ->active()
             ->build();
         $manager->persist($user);
 
         $user = (new UserBuilder())
-            ->withEmail(new Email('auth-wait-user@app.test'))
-            ->withName(new Name('AuthWaitUser'))
+            ->withEmail(new Email('wait-user@app.test'))
+            ->withName(new Name('WaitUser'))
             ->withPasswordHash('$2y$13$p4xY4/WymQSlBxWMOzthR.YoQbNuEXYKVWRC4WRvEbbPrh3yFDZLO') // password
             ->build();
         $manager->persist($user);

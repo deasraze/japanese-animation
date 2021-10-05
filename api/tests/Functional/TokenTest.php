@@ -16,7 +16,7 @@ final class TokenTest extends WebTestCase
         parent::setUp();
 
         $this->loadFixtures([
-            AuthFixture::class,
+            TokenFixture::class,
         ]);
     }
 
@@ -34,10 +34,10 @@ final class TokenTest extends WebTestCase
         $this->assertResponseStatusCodeSame(400);
     }
 
-    public function testSuccess(): void
+    public function testActiveUser(): void
     {
         $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
-            'username' => AuthFixture::userIdentifier(),
+            'username' => TokenFixture::activeUserIdentifier(),
             'password' => 'password',
         ]));
 
@@ -50,7 +50,7 @@ final class TokenTest extends WebTestCase
     public function testWaitUser(): void
     {
         $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
-            'username' => AuthFixture::waitUserIdentifier(),
+            'username' => TokenFixture::waitUserIdentifier(),
             'password' => 'password',
         ]));
 
