@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace App\Tests\Functional\Token;
+
+use App\Tests\Functional\Json;
+use App\Tests\Functional\WebTestCase;
 
 /**
  * @internal

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace App\Tests\Functional\Token;
 
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Name;
