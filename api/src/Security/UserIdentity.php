@@ -28,6 +28,11 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
+    public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
+    }
+
     public function getPassword(): string
     {
         return $this->password;
@@ -49,10 +54,6 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function eraseCredentials(): void
-    {
-    }
-
-    public function getUsername(): void
     {
     }
 }
