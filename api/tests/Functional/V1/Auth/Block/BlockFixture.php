@@ -28,8 +28,8 @@ class BlockFixture extends Fixture
 
         $blocked = (new UserBuilder())
             ->withId(new Id('00000000-0000-0000-0000-000000000002'))
-            ->withEmail(new Email('blocker-user@app.test'))
-            ->withName(new Name('BlockerUser'))
+            ->withEmail(new Email('blocked-user@app.test'))
+            ->withName(new Name('BlockedUser'))
             ->build();
 
         $blocked->block();
