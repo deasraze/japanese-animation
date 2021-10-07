@@ -11,7 +11,7 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(
         private string $id,
-        private string $username,
+        private string $email,
         private string $password,
         private string $role,
         private bool $isActive
