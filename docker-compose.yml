@@ -81,7 +81,7 @@ services:
       - api-postgres
 
   api-postgres:
-    image: postgres:13.4-alpine
+    image: postgres:14.0-alpine
     environment:
       POSTGRES_USER: app
       POSTGRES_PASSWORD: secret
