@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\V1\Auth\Block;
 
-use App\Tests\Functional\AuthFixture;
+use App\Security\Test\Builder\UserIdentityBuilder;
+use App\Security\UserIdentity;
 use App\Tests\Functional\Json;
 use App\Tests\Functional\WebTestCase;
 
@@ -20,7 +21,6 @@ final class BlockTest extends WebTestCase
         parent::setUp();
 
         $this->loadFixtures([
-            AuthFixture::class,
             BlockFixture::class,
         ]);
     }
@@ -34,8 +34,12 @@ final class BlockTest extends WebTestCase
 
     public function testUser(): void
     {
+        $user = (new UserIdentityBuilder())
+            ->active()
+            ->build();
+
         $this
-            ->authorizedClient(...AuthFixture::userCredentials())
+            ->authorizedClient($user)
             ->request('PUT', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(403);
@@ -44,7 +48,7 @@ final class BlockTest extends WebTestCase
     public function testMethod(): void
     {
         $this
-            ->authorizedClient(...AuthFixture::adminCredentials())
+            ->authorizedClient(self::adminIdentity())
             ->request('POST', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(405);
@@ -53,7 +57,7 @@ final class BlockTest extends WebTestCase
     public function testSuccess(): void
     {
         $this
-            ->authorizedClient(...AuthFixture::adminCredentials())
+            ->authorizedClient(self::adminIdentity())
             ->request('PUT', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseIsSuccessful();
@@ -64,7 +68,7 @@ final class BlockTest extends WebTestCase
     public function testAlreadyBlocked(): void
     {
         $this
-            ->authorizedClient(...AuthFixture::adminCredentials())
+            ->authorizedClient(self::adminIdentity())
             ->request('PUT', sprintf(self::URI, BlockFixture::BLOCKED));
 
         $this->assertResponseStatusCodeSame(409);
@@ -72,5 +76,13 @@ final class BlockTest extends WebTestCase
         self::assertEquals([
             'message' => 'User is already blocked.',
         ], Json::decode($body));
+    }
+
+    private static function adminIdentity(): UserIdentity
+    {
+        return (new UserIdentityBuilder())
+            ->withRole('ROLE_ADMIN')
+            ->active()
+            ->build();
     }
 }

@@ -11,6 +11,7 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 abstract class WebTestCase extends BaseWebTestCase
 {
@@ -33,19 +34,14 @@ abstract class WebTestCase extends BaseWebTestCase
         return $this->client;
     }
 
-    protected function authorizedClient(string $identifier, string $password): KernelBrowser
+    protected function authorizedClient(UserInterface $user): KernelBrowser
     {
-        $this->client()->request('POST', '/token', server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
-            'username' => $identifier,
-            'password' => $password,
-        ]));
+        $client = $this->client();
+        $manager = $client->getContainer()->get('lexik_jwt_authentication.jwt_manager');
 
-        /** @var array{token: string} $body */
-        $body = Json::decode((string) $this->client()->getResponse()->getContent());
+        $client->setServerParameter('HTTP_Authorization', 'Bearer '.$manager->create($user));
 
-        $this->client()->setServerParameter('HTTP_Authorization', 'Bearer '.$body['token']);
-
-        return $this->client();
+        return $client;
     }
 
     protected function mailer(): MailerClient
