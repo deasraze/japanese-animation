@@ -12,12 +12,12 @@ use Doctrine\Persistence\ObjectManager;
 
 class TokenFixture extends Fixture
 {
-    public static function activeUserIdentifier(): string
+    public static function activeUserEmail(): string
     {
         return 'active-user@app.test';
     }
 
-    public static function waitUserIdentifier(): string
+    public static function waitUserEmail(): string
     {
         return 'wait-user@app.test';
     }

@@ -40,7 +40,7 @@ final class TokenTest extends WebTestCase
     public function testActiveUser(): void
     {
         $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
-            'username' => TokenFixture::activeUserIdentifier(),
+            'username' => TokenFixture::activeUserEmail(),
             'password' => 'password',
         ]));
 
@@ -53,7 +53,7 @@ final class TokenTest extends WebTestCase
     public function testWaitUser(): void
     {
         $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
-            'username' => TokenFixture::waitUserIdentifier(),
+            'username' => TokenFixture::waitUserEmail(),
             'password' => 'password',
         ]));
 
