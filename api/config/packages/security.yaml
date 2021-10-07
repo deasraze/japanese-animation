@@ -8,6 +8,8 @@ security:
     providers:
         fetcher:
             id: App\Security\UserProvider
+        jwt:
+            lexik_jwt: ~
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -23,6 +25,7 @@ security:
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
         main:
             stateless: true
+            provider: jwt
             jwt: ~
 
             # activate different ways to authenticate
