@@ -18,14 +18,9 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
     ) {
     }
 
-    public function getId(): string
-    {
-        return $this->id;
-    }
-
     public function getUserIdentifier(): string
     {
-        return $this->username;
+        return $this->id;
     }
 
     public function getUsername(): string
@@ -48,7 +43,7 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isActive;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return null;
     }
