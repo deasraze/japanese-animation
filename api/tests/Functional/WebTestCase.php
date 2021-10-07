@@ -33,6 +33,21 @@ abstract class WebTestCase extends BaseWebTestCase
         return $this->client;
     }
 
+    protected function authorizedClient(string $identifier, string $password): KernelBrowser
+    {
+        $this->client()->request('POST', '/token', server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
+            'username' => $identifier,
+            'password' => $password,
+        ]));
+
+        /** @var array{token: string} $body */
+        $body = Json::decode((string) $this->client()->getResponse()->getContent());
+
+        $this->client()->setServerParameter('HTTP_Authorization', 'Bearer '.$body['token']);
+
+        return $this->client();
+    }
+
     protected function mailer(): MailerClient
     {
         if (null === $this->mailer) {
