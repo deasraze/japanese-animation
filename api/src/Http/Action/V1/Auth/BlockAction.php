@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Action\V1\Auth;
 
 use App\Annotation\Guid;
-use App\Auth\Command\Block;
+use App\Auth\Command\Block\Command;
+use App\Auth\Command\Block\Handler;
 use App\Validator\Validator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,14 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class BlockAction extends AbstractController
 {
     public function __construct(
-        private Block\Handler $handler,
-        private Validator $validator
+        private Handler $handler,
+        private Validator $validator,
     ) {
     }
 
     public function __invoke(string $id): Response
     {
-        $command = new Block\Command();
+        $command = new Command();
         $command->id = $id;
 
         $this->validator->validate($command);

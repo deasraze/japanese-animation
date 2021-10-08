@@ -14,11 +14,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/auth/join', name: self::class, methods: ['POST'])]
 class RequestAction extends AbstractController
 {
-    public function __invoke(Validator $validator, Handler $handler, Command $command): Response
-    {
-        $validator->validate($command);
+    public function __construct(
+        private Validator $validator,
+        private Handler $handler,
+    ) {
+    }
 
-        $handler->handle($command);
+    public function __invoke(Command $command): Response
+    {
+        $this->validator->validate($command);
+
+        $this->handler->handle($command);
 
         return $this->json([], 201);
     }
