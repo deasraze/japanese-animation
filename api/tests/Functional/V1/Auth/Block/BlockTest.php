@@ -78,6 +78,21 @@ final class BlockTest extends WebTestCase
         ], Json::decode($body));
     }
 
+    public function testBlockYourself(): void
+    {
+        $identity = self::adminIdentity();
+
+        $this
+            ->authorizedClient($identity)
+            ->request('PUT', sprintf(self::URI, $identity->getUserIdentifier()));
+
+        $this->assertResponseStatusCodeSame(400);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertEquals([
+            'message' => 'Unable block to yourself.',
+        ], Json::decode($body));
+    }
+
     private static function adminIdentity(): UserIdentity
     {
         return (new UserIdentityBuilder())
