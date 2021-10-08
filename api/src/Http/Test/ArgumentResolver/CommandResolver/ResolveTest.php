@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Request\CommandResolver;
+namespace App\Http\Test\ArgumentResolver\CommandResolver;
 
-use App\Http\Request\CommandResolver;
+use App\Http\ArgumentResolver\CommandResolver;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 /**
  * @internal
- * @covers \App\Http\Request\CommandResolver
+ * @covers \App\Http\ArgumentResolver\CommandResolver
  */
 final class ResolveTest extends TestCase
 {

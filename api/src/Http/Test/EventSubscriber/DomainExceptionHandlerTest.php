@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Response;
+namespace App\Http\Test\EventSubscriber;
 
-use App\Http\Response\DomainExceptionHandler;
+use App\Http\EventSubscriber\DomainExceptionHandler;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 /**
  * @internal
- * @covers \App\Http\Response\DomainExceptionHandler
+ * @covers \App\Http\EventSubscriber\DomainExceptionHandler
  */
 final class DomainExceptionHandlerTest extends TestCase
 {

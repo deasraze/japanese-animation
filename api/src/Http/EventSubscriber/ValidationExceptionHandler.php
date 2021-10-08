@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Response;
+namespace App\Http\EventSubscriber;
 
 use App\Validator\ValidatorException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

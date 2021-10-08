@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Response;
+namespace App\Http\EventSubscriber;
 
 use DomainException;
 use Psr\Log\LoggerInterface;

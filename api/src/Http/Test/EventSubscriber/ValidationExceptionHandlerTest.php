@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Test\Response;
+namespace App\Http\Test\EventSubscriber;
 
-use App\Http\Response\ValidationExceptionHandler;
+use App\Http\EventSubscriber\ValidationExceptionHandler;
 use App\Validator\ValidatorException;
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 
 /**
  * @internal
- * @covers \App\Http\Response\ValidationExceptionHandler
+ * @covers \App\Http\EventSubscriber\ValidationExceptionHandler
  */
 final class ValidationExceptionHandlerTest extends TestCase
 {

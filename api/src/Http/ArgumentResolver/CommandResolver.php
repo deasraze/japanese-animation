@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Request;
+namespace App\Http\ArgumentResolver;
 
 use Generator;
 use Symfony\Component\HttpFoundation\Request;
