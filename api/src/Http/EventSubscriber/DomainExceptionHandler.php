@@ -10,11 +10,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DomainExceptionHandler implements EventSubscriberInterface
 {
-    public function __construct(private LoggerInterface $logger)
-    {
+    public function __construct(
+        private LoggerInterface $logger,
+        private TranslatorInterface $translator,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -38,7 +41,7 @@ class DomainExceptionHandler implements EventSubscriberInterface
         ]);
 
         $event->setResponse(new JsonResponse([
-            'message' => $exception->getMessage(),
+            'message' => $this->translator->trans($exception->getMessage(), domain: 'exceptions'),
         ], 409));
     }
 }
