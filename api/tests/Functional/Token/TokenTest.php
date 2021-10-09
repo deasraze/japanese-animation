@@ -6,12 +6,15 @@ namespace App\Tests\Functional\Token;
 
 use App\Tests\Functional\Json;
 use App\Tests\Functional\WebTestCase;
+use DMS\PHPUnitExtensions\ArraySubset\ArraySubsetAsserts;
 
 /**
  * @internal
  */
 final class TokenTest extends WebTestCase
 {
+    use ArraySubsetAsserts;
+
     private const URI = '/token';
 
     protected function setUp(): void
@@ -72,5 +75,19 @@ final class TokenTest extends WebTestCase
         $this->assertResponseStatusCodeSame(401);
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertStringContainsString('Invalid credentials.', $body);
+    }
+
+    public function testInvalidUserLang(): void
+    {
+        $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json', 'HTTP_ACCEPT_LANGUAGE' => 'ru-RU'], content: Json::encode([
+            'username' => 'invalid-user@app.test',
+            'password' => '',
+        ]));
+
+        $this->assertResponseStatusCodeSame(401);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertArraySubset([
+            'message' => 'Недействительные аутентификационные данные.',
+        ], Json::decode($body));
     }
 }
