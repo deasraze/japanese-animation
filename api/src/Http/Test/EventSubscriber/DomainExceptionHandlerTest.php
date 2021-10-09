@@ -38,7 +38,7 @@ final class DomainExceptionHandlerTest extends TestCase
             self::equalTo($message),
             self::equalTo([]),
             self::equalTo('exceptions')
-        )->willReturn($translateMessage = 'Ошибка.');
+        )->willReturn($translatedMessage = 'Ошибка.');
 
         $handler = new DomainExceptionHandler($logger, $translator);
         $handler->onKernelException($event);
@@ -50,7 +50,7 @@ final class DomainExceptionHandlerTest extends TestCase
         /** @var array $data */
         $data = json_decode($body, true, flags: JSON_THROW_ON_ERROR);
 
-        self::assertEquals(['message' => $translateMessage], $data);
+        self::assertEquals(['message' => $translatedMessage], $data);
     }
 
     public function testOtherException(): void
