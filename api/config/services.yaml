@@ -21,6 +21,8 @@ services:
             - '../src/Auth/Test/'
             - '../src/Frontend/Test/'
             - '../src/Http/Test/'
+            - '../src/Security/Test/'
+            - '../src/Validator/Test/'
             - '../src/Kernel.php'
             - '../src/Tests/'
 
