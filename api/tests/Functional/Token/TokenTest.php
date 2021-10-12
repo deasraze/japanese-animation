@@ -65,6 +65,28 @@ final class TokenTest extends WebTestCase
         self::assertStringContainsString('Your account is not active.', $body);
     }
 
+    public function testWaitUserLang(): void
+    {
+        $this->client()->request(
+            'POST',
+            self::URI,
+            server: [
+                'CONTENT_TYPE' => 'application/json',
+                'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+            ],
+            content: Json::encode([
+                'username' => TokenFixture::waitUserEmail(),
+                'password' => 'password',
+            ])
+        );
+
+        $this->assertResponseStatusCodeSame(401);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertArraySubset([
+            'message' => 'Ваша учетная запись неактивна.',
+        ], Json::decode($body));
+    }
+
     public function testInvalidUser(): void
     {
         $this->client()->request('POST', self::URI, server: ['CONTENT_TYPE' => 'application/json'], content: Json::encode([
