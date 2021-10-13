@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/auth/{id}/block', requirements: ['id' => Guid::PATTERN], methods: ['PUT'])]
 #[IsGranted('ROLE_ADMIN')]
@@ -21,6 +22,7 @@ class BlockAction extends AbstractController
     public function __construct(
         private Handler $handler,
         private Validator $validator,
+        private TranslatorInterface $translator,
     ) {
     }
 
@@ -31,7 +33,7 @@ class BlockAction extends AbstractController
 
         if ($id === $user->getUserIdentifier()) {
             return $this->json([
-                'message' => 'Unable block to yourself.',
+                'message' => $this->translator->trans('error.block_yourself', [], 'auth'),
             ], 400);
         }
 
