@@ -64,6 +64,24 @@ final class ResetTest extends WebTestCase
         ], $data);
     }
 
+    public function testExpiredTokenLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru;q=0.9,en;q=0.7,fr;q=0.8'], content: Json::encode([
+            'token' => ResetFixture::EXPIRED,
+            'password' => 'new-password',
+        ]));
+
+        self::assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'message' => 'Время действия токена истекло.',
+        ], $data);
+    }
+
     public function testInvalidToken(): void
     {
         $client = $this->client();
@@ -79,6 +97,24 @@ final class ResetTest extends WebTestCase
 
         self::assertEquals([
             'message' => 'Token is invalid.',
+        ], $data);
+    }
+
+    public function testInvalidTokenLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru-RU'], content: Json::encode([
+            'token' => 'invalid-token',
+            'password' => 'new-password',
+        ]));
+
+        self::assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'message' => 'Неверный токен.',
         ], $data);
     }
 
@@ -102,6 +138,26 @@ final class ResetTest extends WebTestCase
         ], $data);
     }
 
+    public function testIncorrectPasswordLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru'], content: Json::encode([
+            'token' => ResetFixture::VALID,
+            'password' => 'short',
+        ]));
+
+        self::assertResponseStatusCodeSame(422);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'errors' => [
+                'password' => 'Значение слишком короткое. Должно быть равно 8 символам или больше.',
+            ],
+        ], $data);
+    }
+
     public function testEmpty(): void
     {
         $client = $this->client();
@@ -116,6 +172,24 @@ final class ResetTest extends WebTestCase
             'errors' => [
                 'token' => 'This value should not be blank.',
                 'password' => 'This value should not be blank.',
+            ],
+        ], $data);
+    }
+
+    public function testEmptyLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru'], content: Json::encode([]));
+
+        self::assertResponseStatusCodeSame(422);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'errors' => [
+                'token' => 'Значение не должно быть пустым.',
+                'password' => 'Значение не должно быть пустым.',
             ],
         ], $data);
     }
