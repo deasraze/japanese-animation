@@ -78,6 +78,21 @@ final class BlockTest extends WebTestCase
         ], Json::decode($body));
     }
 
+    public function testAlreadyBlockedLang(): void
+    {
+        $this
+            ->authorizedClient(self::adminIdentity())
+            ->request('PUT', sprintf(self::URI, BlockFixture::BLOCKED), server: [
+                'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US,en;q=0.9',
+            ]);
+
+        $this->assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertEquals([
+            'message' => 'Пользователь уже заблокирован.',
+        ], Json::decode($body));
+    }
+
     public function testBlockYourself(): void
     {
         $identity = self::adminIdentity();
