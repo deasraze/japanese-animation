@@ -63,6 +63,23 @@ final class RequestTest extends WebTestCase
         ], $data);
     }
 
+    public function testNotExistsLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'en-US;q=0.7,ru-RU;q=0.9'], content: Json::encode([
+            'email' => 'not-exists@app.test',
+        ]));
+
+        self::assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'message' => 'Пользователь не найден.',
+        ], $data);
+    }
+
     public function testNotActive(): void
     {
         $client = $this->client();
@@ -77,6 +94,23 @@ final class RequestTest extends WebTestCase
 
         self::assertEquals([
             'message' => 'User is not active.',
+        ], $data);
+    }
+
+    public function testNotActiveLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru-RU'], content: Json::encode([
+            'email' => 'wait@app.test',
+        ]));
+
+        self::assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'message' => 'Пользователь не активен.',
         ], $data);
     }
 
@@ -112,6 +146,25 @@ final class RequestTest extends WebTestCase
         self::assertEquals([
             'errors' => [
                 'email' => 'This value is not a valid email address.',
+            ],
+        ], $data);
+    }
+
+    public function testNotValidLang(): void
+    {
+        $client = $this->client();
+        $client->request('POST', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru'], content: Json::encode([
+            'email' => 'not-email',
+        ]));
+
+        self::assertResponseStatusCodeSame(422);
+        self::assertJson($body = (string) $client->getResponse()->getContent());
+
+        $data = Json::decode($body);
+
+        self::assertEquals([
+            'errors' => [
+                'email' => 'Значение адреса электронной почты недопустимо.',
             ],
         ], $data);
     }
