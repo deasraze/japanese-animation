@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\V1\Auth\Block;
 
-use App\Security\Test\Builder\UserIdentityBuilder;
-use App\Security\UserIdentity;
 use App\Tests\Functional\Json;
+use App\Tests\Functional\UserIdentityMother;
 use App\Tests\Functional\WebTestCase;
 
 /**
@@ -34,12 +33,8 @@ final class BlockTest extends WebTestCase
 
     public function testUser(): void
     {
-        $user = (new UserIdentityBuilder())
-            ->active()
-            ->build();
-
         $this
-            ->authorizedClient($user)
+            ->authorizedClient(UserIdentityMother::user())
             ->request('PUT', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(403);
@@ -48,7 +43,7 @@ final class BlockTest extends WebTestCase
     public function testMethod(): void
     {
         $this
-            ->authorizedClient(self::adminIdentity())
+            ->authorizedClient(UserIdentityMother::admin())
             ->request('POST', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(405);
@@ -57,7 +52,7 @@ final class BlockTest extends WebTestCase
     public function testSuccess(): void
     {
         $this
-            ->authorizedClient(self::adminIdentity())
+            ->authorizedClient(UserIdentityMother::admin())
             ->request('PUT', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseIsSuccessful();
@@ -68,7 +63,7 @@ final class BlockTest extends WebTestCase
     public function testAlreadyBlocked(): void
     {
         $this
-            ->authorizedClient(self::adminIdentity())
+            ->authorizedClient(UserIdentityMother::admin())
             ->request('PUT', sprintf(self::URI, BlockFixture::BLOCKED));
 
         $this->assertResponseStatusCodeSame(409);
@@ -81,7 +76,7 @@ final class BlockTest extends WebTestCase
     public function testAlreadyBlockedLang(): void
     {
         $this
-            ->authorizedClient(self::adminIdentity())
+            ->authorizedClient(UserIdentityMother::admin())
             ->request('PUT', sprintf(self::URI, BlockFixture::BLOCKED), server: [
                 'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US,en;q=0.9',
             ]);
@@ -95,7 +90,7 @@ final class BlockTest extends WebTestCase
 
     public function testBlockYourself(): void
     {
-        $identity = self::adminIdentity();
+        $identity = UserIdentityMother::admin();
 
         $this
             ->authorizedClient($identity)
@@ -110,7 +105,7 @@ final class BlockTest extends WebTestCase
 
     public function testBlockYourselfLang(): void
     {
-        $identity = self::adminIdentity();
+        $identity = UserIdentityMother::admin();
 
         $this
             ->authorizedClient($identity)
@@ -123,13 +118,5 @@ final class BlockTest extends WebTestCase
         self::assertEquals([
             'message' => 'Нельзя заблокировать самого себя.',
         ], Json::decode($body));
-    }
-
-    private static function adminIdentity(): UserIdentity
-    {
-        return (new UserIdentityBuilder())
-            ->withRole('ROLE_ADMIN')
-            ->active()
-            ->build();
     }
 }
