@@ -12,7 +12,7 @@ use App\Tests\Functional\WebTestCase;
  */
 final class ResetTest extends WebTestCase
 {
-    public const URI = '/v1/auth/password/reset/confirm';
+    public const URI = '/v1/auth/password/reset';
 
     protected function setUp(): void
     {

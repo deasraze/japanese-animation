@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-#[Route('/auth/{id}/block', requirements: ['id' => Guid::PATTERN], methods: ['PUT'])]
+#[Route('/auth/users/{id}/block', requirements: ['id' => Guid::PATTERN], methods: ['PUT'])]
 #[IsGranted('ROLE_ADMIN')]
 class BlockAction extends AbstractController
 {

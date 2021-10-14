@@ -14,7 +14,7 @@ use App\Tests\Functional\WebTestCase;
  */
 final class BlockTest extends WebTestCase
 {
-    private const URI = '/v1/auth/%s/block';
+    private const URI = '/v1/auth/users/%s/block';
 
     protected function setUp(): void
     {
