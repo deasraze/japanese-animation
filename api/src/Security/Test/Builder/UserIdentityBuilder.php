@@ -32,6 +32,15 @@ class UserIdentityBuilder
         return $clone;
     }
 
+    public function withId(string $id): self
+    {
+        $clone = clone $this;
+
+        $clone->id = $id;
+
+        return $clone;
+    }
+
     public function withRole(string $role): self
     {
         $clone = clone $this;
