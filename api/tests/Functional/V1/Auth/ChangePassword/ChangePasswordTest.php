@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\V1\Auth\ChangePassword;
 
+use App\Auth\Entity\User\Id;
 use App\Tests\Functional\Json;
 use App\Tests\Functional\UserIdentityMother;
 use App\Tests\Functional\WebTestCase;
@@ -65,6 +66,25 @@ final class ChangePasswordTest extends WebTestCase
                     ->build()
             )
             ->request('PUT', self::URI, content: Json::encode([
+                'current' => 'password',
+                'new' => 'new-password',
+            ]));
+
+        $this->assertResponseIsSuccessful();
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertEquals([], Json::decode($body));
+    }
+
+    public function testFakeId(): void
+    {
+        $this
+            ->authorizedClient(
+                UserIdentityMother::user()
+                    ->withId(ChangePasswordFixture::VIA_EMAIL)
+                    ->build()
+            )
+            ->request('PUT', self::URI, content: Json::encode([
+                'id' => Id::generate()->getValue(),
                 'current' => 'password',
                 'new' => 'new-password',
             ]));
