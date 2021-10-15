@@ -39,6 +39,11 @@ final class ChangePasswordTest extends TestCase
         $user->changePassword('wrong-current-password', 'new-password', $hasher);
     }
 
+    public function testByNetwork(): void
+    {
+        self::markTestIncomplete('Waiting join by network.');
+    }
+
     private function createHasher(bool $valid, string $hash): PasswordHasher
     {
         $hasher = $this->createStub(PasswordHasher::class);
