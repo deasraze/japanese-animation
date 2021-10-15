@@ -206,7 +206,7 @@ final class ChangePasswordTest extends WebTestCase
         ], Json::decode($body));
     }
 
-    public function testByNetwork(): bool
+    public function testByNetwork(): void
     {
         self::markTestIncomplete('Waiting join by network.');
     }
