@@ -6,24 +6,15 @@ namespace App\Auth\Command\ChangePassword;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[Assert\GroupSequence(['Command', 'Strict'])]
 class Command
 {
-    /**
-     * @Assert\NotBlank
-     */
+    #[Assert\NotBlank]
     public string $id = '';
-    /**
-     * @Assert\AtLeastOneOf({
-     *     @Assert\NotBlank,
-     *     @Assert\Length(min=8)
-     * })
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8, groups: ['Strict'])]
     public string $current = '';
-    /**
-     * @Assert\AtLeastOneOf({
-     *     @Assert\NotBlank,
-     *     @Assert\Length(min=8)
-     * })
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8, groups: ['Strict'])]
     public string $new = '';
 }
