@@ -5,22 +5,19 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use App\Security\Test\Builder\UserIdentityBuilder;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserIdentityMother
 {
-    public static function admin(): UserInterface
+    public static function admin(): UserIdentityBuilder
     {
         return (new UserIdentityBuilder())
             ->withRole('ROLE_ADMIN')
-            ->active()
-            ->build();
+            ->active();
     }
 
-    public static function user(): UserInterface
+    public static function user(): UserIdentityBuilder
     {
         return (new UserIdentityBuilder())
-            ->active()
-            ->build();
+            ->active();
     }
 }

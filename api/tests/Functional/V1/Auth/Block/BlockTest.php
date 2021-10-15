@@ -34,7 +34,7 @@ final class BlockTest extends WebTestCase
     public function testUser(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::user())
+            ->authorizedClient(UserIdentityMother::user()->build())
             ->request('PUT', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(403);
@@ -43,7 +43,7 @@ final class BlockTest extends WebTestCase
     public function testMethod(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('POST', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(405);
@@ -52,7 +52,7 @@ final class BlockTest extends WebTestCase
     public function testSuccess(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('PUT', sprintf(self::URI, BlockFixture::ACTIVE));
 
         $this->assertResponseIsSuccessful();
@@ -63,7 +63,7 @@ final class BlockTest extends WebTestCase
     public function testAlreadyBlocked(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('PUT', sprintf(self::URI, BlockFixture::BLOCKED));
 
         $this->assertResponseStatusCodeSame(409);
@@ -76,7 +76,7 @@ final class BlockTest extends WebTestCase
     public function testAlreadyBlockedLang(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('PUT', sprintf(self::URI, BlockFixture::BLOCKED), server: [
                 'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.8,en-US,en;q=0.9',
             ]);
@@ -90,7 +90,7 @@ final class BlockTest extends WebTestCase
 
     public function testBlockYourself(): void
     {
-        $identity = UserIdentityMother::admin();
+        $identity = UserIdentityMother::admin()->build();
 
         $this
             ->authorizedClient($identity)
@@ -105,7 +105,7 @@ final class BlockTest extends WebTestCase
 
     public function testBlockYourselfLang(): void
     {
-        $identity = UserIdentityMother::admin();
+        $identity = UserIdentityMother::admin()->build();
 
         $this
             ->authorizedClient($identity)

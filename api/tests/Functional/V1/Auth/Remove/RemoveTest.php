@@ -41,7 +41,7 @@ final class RemoveTest extends WebTestCase
     public function testUser(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::user())
+            ->authorizedClient(UserIdentityMother::user()->build())
             ->request('DELETE', sprintf(self::URI, RemoveFixture::WAIT));
 
         $this->assertResponseStatusCodeSame(403);
@@ -50,7 +50,7 @@ final class RemoveTest extends WebTestCase
     public function testSuccess(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('DELETE', sprintf(self::URI, RemoveFixture::WAIT));
 
         $this->assertResponseStatusCodeSame(204);
@@ -59,7 +59,7 @@ final class RemoveTest extends WebTestCase
     public function testActiveUser(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('DELETE', sprintf(self::URI, RemoveFixture::ACTIVE));
 
         $this->assertResponseStatusCodeSame(409);
@@ -72,7 +72,7 @@ final class RemoveTest extends WebTestCase
     public function testActiveUserLang(): void
     {
         $this
-            ->authorizedClient(UserIdentityMother::admin())
+            ->authorizedClient(UserIdentityMother::admin()->build())
             ->request('DELETE', sprintf(self::URI, RemoveFixture::ACTIVE), server: [
                 'HTTP_ACCEPT_LANGUAGE' => 'en;q=0.7,ru;q=0.9',
             ]);
