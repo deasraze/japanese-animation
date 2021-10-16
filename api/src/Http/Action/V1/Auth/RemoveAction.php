@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/auth/users/{id}/delete', name: self::class, requirements: ['id' => Guid::PATTERN], methods: ['DELETE'])]
-#[IsGranted('ROLE_ADMIN')]
+#[IsGranted('ROLE_MANAGE_USERS')]
 class RemoveAction extends AbstractController
 {
     public function __construct(
