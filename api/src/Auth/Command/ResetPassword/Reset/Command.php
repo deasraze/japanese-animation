@@ -6,18 +6,12 @@ namespace App\Auth\Command\ResetPassword\Reset;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @Assert\GroupSequence({"Command", "Strict"})
- */
+#[Assert\GroupSequence(['Command', 'Strict'])]
 class Command
 {
-    /**
-     * @Assert\NotBlank
-     */
+    #[Assert\NotBlank]
     public string $token = '';
-    /**
-     * @Assert\NotBlank
-     * @Assert\Length(min=8, groups={"Strict"})
-     */
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 8, groups: ['Strict'])]
     public string $password = '';
 }
