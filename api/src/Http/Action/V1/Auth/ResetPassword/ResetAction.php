@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/auth/password/reset', name: self::class, methods: ['POST'])]
+#[Route('/auth/password/reset/confirm', name: self::class, methods: ['POST'])]
 class ResetAction extends AbstractController
 {
     public function __construct(
