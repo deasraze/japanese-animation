@@ -14,7 +14,7 @@ use App\Tests\Functional\WebTestCase;
  */
 final class ChangePasswordTest extends WebTestCase
 {
-    private const URI = '/v1/auth/user/password/change';
+    private const URI = '/v1/auth/user/change/password';
 
     protected function setUp(): void
     {
