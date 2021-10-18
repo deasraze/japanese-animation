@@ -14,7 +14,7 @@ use App\Tests\Functional\WebTestCase;
  */
 final class RequestTest extends WebTestCase
 {
-    private const URI = '/v1/auth/user/change/email/request';
+    private const URI = '/v1/auth/user/change/email';
 
     protected function setUp(): void
     {
