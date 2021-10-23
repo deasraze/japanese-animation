@@ -23,7 +23,7 @@ services:
       - "disabled"
 
   frontend-node:
-    image: node:16-alpine
+    image: node:17-alpine
     working_dir: /app
     volumes:
       - ./frontend:/app
@@ -33,7 +33,7 @@ services:
       - "disabled"
 
   frontend-node-cli:
-    image: node:16-alpine
+    image: node:17-alpine
     working_dir: /app
     volumes:
       - ./frontend:/app
