@@ -7,6 +7,7 @@ namespace App\Auth\Test\Builder;
 use App\Auth\Entity\User\Email;
 use App\Auth\Entity\User\Id;
 use App\Auth\Entity\User\Name;
+use App\Auth\Entity\User\Network;
 use App\Auth\Entity\User\Token;
 use App\Auth\Entity\User\User;
 use DateTimeImmutable;
@@ -21,6 +22,7 @@ class UserBuilder
     private string $passwordHash;
     private Token $joinConfirmToken;
     private bool $active = false;
+    private ?Network $network = null;
 
     public function __construct()
     {
@@ -77,6 +79,15 @@ class UserBuilder
         return $clone;
     }
 
+    public function viaNetwork(Network $network = null): self
+    {
+        $clone = clone $this;
+
+        $clone->network = $network ?? new Network('vk', '00001');
+
+        return $clone;
+    }
+
     public function active(): self
     {
         $clone = clone $this;
@@ -88,6 +99,16 @@ class UserBuilder
 
     public function build(): User
     {
+        if (null !== $this->network) {
+            return User::joinByNetwork(
+                $this->id,
+                $this->date,
+                $this->email,
+                $this->name,
+                $this->network
+            );
+        }
+
         $user = User::requestJoinByEmail(
             $this->id,
             $this->date,
