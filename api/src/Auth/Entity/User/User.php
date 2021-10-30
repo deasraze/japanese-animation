@@ -273,6 +273,9 @@ class User
         return $this->role;
     }
 
+    /**
+     * @return array<array-key, Network>
+     */
     public function getNetworks(): array
     {
         return $this
