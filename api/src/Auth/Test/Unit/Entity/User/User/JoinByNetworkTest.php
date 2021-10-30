@@ -12,6 +12,10 @@ use App\Auth\Entity\User\User;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ * @covers \App\Auth\Entity\User\User
+ */
 final class JoinByNetworkTest extends TestCase
 {
     public function testSuccess(): void
