@@ -6,6 +6,8 @@ namespace App\Auth\Entity\User;
 
 use App\Auth\Service\PasswordHasher;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DomainException;
 
@@ -16,26 +18,39 @@ class User
 {
     #[ORM\Id, ORM\Column(type: 'auth_user_id')]
     private Id $id;
+
     #[ORM\Column(type: 'datetime_immutable')]
     private DateTimeImmutable $date;
+
     #[ORM\Column(type: 'auth_user_email', unique: true)]
     private Email $email;
+
     #[ORM\Embedded(class: Name::class)]
     private Name $name;
+
     #[ORM\Column(type: 'auth_user_status', length: 16)]
     private Status $status;
+
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $passwordHash = null;
+
     #[ORM\Embedded(class: Token::class)]
     private ?Token $joinConfirmToken = null;
+
     #[ORM\Embedded(class: Token::class)]
     private ?Token $resetPasswordToken = null;
+
     #[ORM\Column(type: 'auth_user_email', nullable: true)]
     private ?Email $newEmail = null;
+
     #[ORM\Embedded(class: Token::class)]
     private ?Token $newEmailToken = null;
+
     #[ORM\Column(type: 'auth_user_role', length: 16)]
     private Role $role;
+
+    /** @var Collection<array-key, UserNetwork> */
+    private Collection $networks;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name, Status $status)
     {
@@ -45,6 +60,21 @@ class User
         $this->name = $name;
         $this->status = $status;
         $this->role = Role::user();
+        $this->networks = new ArrayCollection();
+    }
+
+    public static function joinByNetwork(
+        Id $id,
+        DateTimeImmutable $date,
+        Email $email,
+        Name $name,
+        Network $network
+    ): self {
+        $user = new self($id, $date, $email, $name, Status::active());
+
+        $user->networks->add(new UserNetwork($user, $network));
+
+        return $user;
     }
 
     public static function requestJoinByEmail(
@@ -73,6 +103,17 @@ class User
 
         $this->status = Status::active();
         $this->joinConfirmToken = null;
+    }
+
+    public function attachNetwork(Network $network): void
+    {
+        foreach ($this->networks as $existing) {
+            if ($existing->getNetwork()->isEqualTo($network)) {
+                throw new DomainException('Network is already attached.');
+            }
+        }
+
+        $this->networks->add(new UserNetwork($this, $network));
     }
 
     public function requestResetPassword(Token $token, DateTimeImmutable $date): void
@@ -230,6 +271,13 @@ class User
     public function getRole(): Role
     {
         return $this->role;
+    }
+
+    public function getNetworks(): array
+    {
+        return $this
+            ->networks->map(static fn (UserNetwork $userNetwork) => $userNetwork->getNetwork())
+            ->toArray();
     }
 
     #[ORM\PostLoad]
