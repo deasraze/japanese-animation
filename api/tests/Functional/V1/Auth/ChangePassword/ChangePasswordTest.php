@@ -228,6 +228,41 @@ final class ChangePasswordTest extends WebTestCase
 
     public function testByNetwork(): void
     {
-        self::markTestIncomplete('Waiting join by network.');
+        $this
+            ->authorizedClient(
+                UserIdentityMother::user()
+                    ->withId(ChangePasswordFixture::VIA_NETWORK)
+                    ->build()
+            )
+            ->request('PUT', self::URI, content: Json::encode([
+                'current' => 'any-password',
+                'new' => 'new-password',
+            ]));
+
+        $this->assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertEquals([
+            'message' => 'User does not have an old password.',
+        ], Json::decode($body));
+    }
+
+    public function testByNetworkLang(): void
+    {
+        $this
+            ->authorizedClient(
+                UserIdentityMother::user()
+                    ->withId(ChangePasswordFixture::VIA_NETWORK)
+                    ->build()
+            )
+            ->request('PUT', self::URI, server: ['HTTP_ACCEPT_LANGUAGE' => 'ru'], content: Json::encode([
+                'current' => 'any-password',
+                'new' => 'new-password',
+            ]));
+
+        $this->assertResponseStatusCodeSame(409);
+        self::assertJson($body = (string) $this->client()->getResponse()->getContent());
+        self::assertEquals([
+            'message' => 'У пользователя нет старого пароля.',
+        ], Json::decode($body));
     }
 }
