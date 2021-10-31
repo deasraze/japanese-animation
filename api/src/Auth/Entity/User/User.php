@@ -50,6 +50,7 @@ class User
     private Role $role;
 
     /** @var Collection<array-key, UserNetwork> */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserNetwork::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $networks;
 
     private function __construct(Id $id, DateTimeImmutable $date, Email $email, Name $name, Status $status)
