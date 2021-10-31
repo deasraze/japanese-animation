@@ -20,4 +20,5 @@ return [
     'Current password is incorrect.' => 'Неверный текущий пароль.',
     'Role is already same.' => 'Роль совпадает с текущей.',
     'Unable to remove active user.' => 'Нельзя удалить активного пользователя.',
+    'Network is already attached.' => 'Социальная сеть уже привязана.',
 ];
