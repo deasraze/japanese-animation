@@ -14,6 +14,12 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        token_refresh:
+            pattern: ^/token/refresh
+            stateless: true
+            user_checker: App\Security\UserChecker
+            refresh_jwt:
+                provider: fetcher
         token:
             pattern: ^/token
             stateless: true
@@ -42,5 +48,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/token/refresh, roles: PUBLIC_ACCESS }
         # - { path: ^/profile, roles: ROLE_USER }

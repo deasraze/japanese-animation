@@ -1,3 +1,7 @@
 token:
   path: /token
   methods: POST
+
+gesdinet_jwt_refresh_token:
+  path: /token/refresh
+  methods: POST
