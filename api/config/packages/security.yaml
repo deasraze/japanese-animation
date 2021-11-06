@@ -9,7 +9,8 @@ security:
         fetcher:
             id: App\Security\UserProvider
         jwt:
-            lexik_jwt: ~
+            lexik_jwt:
+                class: App\Security\Jwt\JWTUserIdentity
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
