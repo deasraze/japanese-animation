@@ -93,10 +93,10 @@ api-test-unit:
 api-test-unit-coverage:
 	docker-compose run --rm api-php-cli composer test-coverage -- --testsuite=unit
 
-api-test-functional:
+api-test-functional: api-test-init
 	docker-compose run --rm api-php-cli bin/phpunit --testsuite=functional
 
-api-test-functional-coverage:
+api-test-functional-coverage: api-test-init
 	docker-compose run --rm api-php-cli composer test-coverage -- --testsuite=functional
 
 frontend-clear:
