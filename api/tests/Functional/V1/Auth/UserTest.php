@@ -35,6 +35,7 @@ final class UserTest extends WebTestCase
             ->authorizedClient(
                 UserIdentityMother::user()
                     ->withId($id = '00000000-0000-0000-0000-000000000001')
+                    ->withEmail($email = 'email@example.com')
                     ->build()
             )
             ->request('GET', self::URI);
@@ -43,6 +44,7 @@ final class UserTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'id' => $id,
+            'email' => $email,
             'role' => 'ROLE_USER',
         ], Json::decode($body));
     }
@@ -53,6 +55,7 @@ final class UserTest extends WebTestCase
             ->authorizedClient(
                 UserIdentityMother::admin()
                     ->withId($id = '00000000-0000-0000-0000-000000000001')
+                    ->withEmail($email = 'email@example.com')
                     ->build()
             )
             ->request('GET', self::URI);
@@ -61,6 +64,7 @@ final class UserTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'id' => $id,
+            'email' => $email,
             'role' => 'ROLE_ADMIN',
         ], Json::decode($body));
     }
