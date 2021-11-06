@@ -7,12 +7,12 @@ namespace App\Http\Action\V1\Auth;
 use App\Annotation\Guid;
 use App\Auth\Command\Block\Command;
 use App\Auth\Command\Block\Handler;
+use App\Security\Jwt\JWTUserIdentity;
 use App\Validator\Validator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/auth/users/{id}/block', requirements: ['id' => Guid::PATTERN], methods: ['PUT'])]
@@ -28,10 +28,10 @@ class BlockAction extends AbstractController
 
     public function __invoke(string $id): Response
     {
-        /** @var UserInterface $user */
+        /** @var JWTUserIdentity $user */
         $user = $this->getUser();
 
-        if ($id === $user->getUserIdentifier()) {
+        if ($id === $user->getId()) {
             return $this->json([
                 'message' => $this->translator->trans('error.block_yourself', [], 'auth'),
             ], 400);
