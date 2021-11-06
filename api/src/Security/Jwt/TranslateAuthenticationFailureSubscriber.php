@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class TranslatedAuthenticationFailureSubscriber implements EventSubscriberInterface
+class TranslateAuthenticationFailureSubscriber implements EventSubscriberInterface
 {
     public function __construct(private TranslatorInterface $translator)
     {
