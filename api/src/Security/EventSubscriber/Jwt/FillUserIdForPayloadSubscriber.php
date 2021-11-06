@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Jwt;
+namespace App\Security\EventSubscriber\Jwt;
 
 use App\Security\UserIdentity;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTCreatedEvent;
