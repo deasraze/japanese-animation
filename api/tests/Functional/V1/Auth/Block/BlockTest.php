@@ -94,7 +94,7 @@ final class BlockTest extends WebTestCase
 
         $this
             ->authorizedClient($identity)
-            ->request('PUT', sprintf(self::URI, $identity->getUserIdentifier()));
+            ->request('PUT', sprintf(self::URI, $identity->getId()));
 
         $this->assertResponseStatusCodeSame(400);
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
@@ -109,7 +109,7 @@ final class BlockTest extends WebTestCase
 
         $this
             ->authorizedClient($identity)
-            ->request('PUT', sprintf(self::URI, $identity->getUserIdentifier()), server: [
+            ->request('PUT', sprintf(self::URI, $identity->getId()), server: [
                 'HTTP_ACCEPT_LANGUAGE' => 'en-US;q=0.8,ru-RU;q=0.9',
             ]);
 

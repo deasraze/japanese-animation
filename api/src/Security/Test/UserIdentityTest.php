@@ -18,14 +18,15 @@ final class UserIdentityTest extends TestCase
     {
         $identity = new UserIdentity(
             $id = Uuid::uuid4()->toString(),
-            'user-identity@app.test',
+            $email = 'user-identity@app.test',
             $password = 'hash',
             $role = 'ROLE_USER',
             true,
         );
 
-        self::assertEquals($id, $identity->getUserIdentifier());
-        self::assertEquals($id, $identity->getUsername());
+        self::assertEquals($id, $identity->getId());
+        self::assertEquals($email, $identity->getUserIdentifier());
+        self::assertEquals($email, $identity->getUsername());
         self::assertEquals($password, $identity->getPassword());
         self::assertEquals([$role], $identity->getRoles());
         self::assertTrue($identity->isActive());
