@@ -18,9 +18,14 @@ class UserIdentity implements UserInterface, PasswordAuthenticatedUserInterface
     ) {
     }
 
-    public function getUserIdentifier(): string
+    public function getId(): string
     {
         return $this->id;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 
     public function getUsername(): string
