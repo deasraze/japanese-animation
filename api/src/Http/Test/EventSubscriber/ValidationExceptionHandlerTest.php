@@ -25,6 +25,7 @@ final class ValidationExceptionHandlerTest extends TestCase
     {
         $violations = new ConstraintViolationList([
             new ConstraintViolation('Invalid Nickname', null, [], null, 'nickname', 'nick'),
+            new ConstraintViolation('Invalid Nickname 2', null, [], null, 'nickname', 'nick'),
             new ConstraintViolation('Incorrect Email', null, [], null, 'email', 'not-email'),
         ]);
 
@@ -47,8 +48,11 @@ final class ValidationExceptionHandlerTest extends TestCase
 
         self::assertEquals([
             'errors' => [
-                'nickname' => 'Invalid Nickname',
-                'email' => 'Incorrect Email',
+                'nickname' => [
+                    'Invalid Nickname',
+                    'Invalid Nickname 2',
+                ],
+                'email' => ['Incorrect Email'],
             ],
         ], $data);
     }

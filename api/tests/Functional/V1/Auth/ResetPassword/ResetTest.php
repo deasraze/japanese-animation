@@ -133,7 +133,7 @@ final class ResetTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'password' => 'This value is too short. It should have 8 characters or more.',
+                'password' => ['This value is too short. It should have 8 characters or more.'],
             ],
         ], $data);
     }
@@ -153,7 +153,7 @@ final class ResetTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'password' => 'Значение слишком короткое. Должно быть равно 8 символам или больше.',
+                'password' => ['Значение слишком короткое. Должно быть равно 8 символам или больше.'],
             ],
         ], $data);
     }
@@ -170,8 +170,8 @@ final class ResetTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'token' => 'This value should not be blank.',
-                'password' => 'This value should not be blank.',
+                'token' => ['This value should not be blank.'],
+                'password' => ['This value should not be blank.'],
             ],
         ], $data);
     }
@@ -188,8 +188,8 @@ final class ResetTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'token' => 'Значение не должно быть пустым.',
-                'password' => 'Значение не должно быть пустым.',
+                'token' => ['Значение не должно быть пустым.'],
+                'password' => ['Значение не должно быть пустым.'],
             ],
         ], $data);
     }

@@ -38,7 +38,7 @@ class ValidationExceptionHandler implements EventSubscriberInterface
         $errors = [];
 
         foreach ($violations as $violation) {
-            $errors[$violation->getPropertyPath()] = $violation->getMessage();
+            $errors[$violation->getPropertyPath()][] = $violation->getMessage();
         }
 
         return $errors;

@@ -119,9 +119,9 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'This value is not a valid email address.',
-                'nickname' => 'This value should be of type alnum.',
-                'password' => 'This value is too short. It should have 8 characters or more.',
+                'email' => ['This value is not a valid email address.'],
+                'nickname' => ['This value should be of type alnum.'],
+                'password' => ['This value is too short. It should have 8 characters or more.'],
             ],
         ], Json::decode($body));
     }
@@ -138,9 +138,9 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'Значение адреса электронной почты недопустимо.',
-                'nickname' => 'Тип значения должен быть alnum.',
-                'password' => 'Значение слишком короткое. Должно быть равно 8 символам или больше.',
+                'email' => ['Значение адреса электронной почты недопустимо.'],
+                'nickname' => ['Тип значения должен быть alnum.'],
+                'password' => ['Значение слишком короткое. Должно быть равно 8 символам или больше.'],
             ],
         ], Json::decode($body));
     }
@@ -153,9 +153,9 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'This value should not be blank.',
-                'nickname' => 'This value should not be blank.',
-                'password' => 'This value should not be blank.',
+                'email' => ['This value should not be blank.'],
+                'nickname' => ['This value should not be blank.'],
+                'password' => ['This value should not be blank.'],
             ],
         ], Json::decode($body));
     }
@@ -168,9 +168,9 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'Значение не должно быть пустым.',
-                'nickname' => 'Значение не должно быть пустым.',
-                'password' => 'Значение не должно быть пустым.',
+                'email' => ['Значение не должно быть пустым.'],
+                'nickname' => ['Значение не должно быть пустым.'],
+                'password' => ['Значение не должно быть пустым.'],
             ],
         ], Json::decode($body));
     }

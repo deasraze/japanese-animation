@@ -90,7 +90,7 @@ final class ChangeRoleTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'role' => 'This value should not be blank.',
+                'role' => ['This value should not be blank.'],
             ],
         ], Json::decode($body));
     }
@@ -110,7 +110,7 @@ final class ChangeRoleTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'role' => 'Значение не должно быть пустым.',
+                'role' => ['Значение не должно быть пустым.'],
             ],
         ], Json::decode($body));
     }

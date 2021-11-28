@@ -126,7 +126,7 @@ final class RequestTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'email' => 'This value should not be blank.',
+                'email' => ['This value should not be blank.'],
             ],
         ], $data);
     }
@@ -145,7 +145,7 @@ final class RequestTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'email' => 'This value is not a valid email address.',
+                'email' => ['This value is not a valid email address.'],
             ],
         ], $data);
     }
@@ -164,7 +164,7 @@ final class RequestTest extends WebTestCase
 
         self::assertEquals([
             'errors' => [
-                'email' => 'Значение адреса электронной почты недопустимо.',
+                'email' => ['Значение адреса электронной почты недопустимо.'],
             ],
         ], $data);
     }

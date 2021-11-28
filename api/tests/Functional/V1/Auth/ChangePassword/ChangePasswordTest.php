@@ -111,8 +111,8 @@ final class ChangePasswordTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'current' => 'This value should not be blank.',
-                'new' => 'This value should not be blank.',
+                'current' => ['This value should not be blank.'],
+                'new' => ['This value should not be blank.'],
             ],
         ], Json::decode($body));
     }
@@ -134,8 +134,8 @@ final class ChangePasswordTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'current' => 'Значение не должно быть пустым.',
-                'new' => 'Значение не должно быть пустым.',
+                'current' => ['Значение не должно быть пустым.'],
+                'new' => ['Значение не должно быть пустым.'],
             ],
         ], Json::decode($body));
     }
@@ -157,8 +157,8 @@ final class ChangePasswordTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'current' => 'This value is too short. It should have 8 characters or more.',
-                'new' => 'This value is too short. It should have 8 characters or more.',
+                'current' => ['This value is too short. It should have 8 characters or more.'],
+                'new' => ['This value is too short. It should have 8 characters or more.'],
             ],
         ], Json::decode($body));
     }
@@ -180,8 +180,8 @@ final class ChangePasswordTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'current' => 'Значение слишком короткое. Должно быть равно 8 символам или больше.',
-                'new' => 'Значение слишком короткое. Должно быть равно 8 символам или больше.',
+                'current' => ['Значение слишком короткое. Должно быть равно 8 символам или больше.'],
+                'new' => ['Значение слишком короткое. Должно быть равно 8 символам или больше.'],
             ],
         ], Json::decode($body));
     }

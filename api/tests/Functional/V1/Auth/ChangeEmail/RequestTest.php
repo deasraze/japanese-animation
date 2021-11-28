@@ -92,7 +92,7 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'This value should not be blank.',
+                'email' => ['This value should not be blank.'],
             ],
         ], Json::decode($body));
     }
@@ -113,7 +113,7 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'Значение не должно быть пустым.',
+                'email' => ['Значение не должно быть пустым.'],
             ],
         ], Json::decode($body));
     }
@@ -134,7 +134,7 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'This value is not a valid email address.',
+                'email' => ['This value is not a valid email address.'],
             ],
         ], Json::decode($body));
     }
@@ -155,7 +155,7 @@ final class RequestTest extends WebTestCase
         self::assertJson($body = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'email' => 'Значение адреса электронной почты недопустимо.',
+                'email' => ['Значение адреса электронной почты недопустимо.'],
             ],
         ], Json::decode($body));
     }

@@ -76,7 +76,7 @@ final class ConfirmTest extends WebTestCase
         self::assertJson($data = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'token' => 'This value should not be blank.',
+                'token' => ['This value should not be blank.'],
             ],
         ], Json::decode($data));
     }
@@ -89,7 +89,7 @@ final class ConfirmTest extends WebTestCase
         self::assertJson($data = (string) $this->client()->getResponse()->getContent());
         self::assertEquals([
             'errors' => [
-                'token' => 'Значение не должно быть пустым.',
+                'token' => ['Значение не должно быть пустым.'],
             ],
         ], Json::decode($data));
     }
