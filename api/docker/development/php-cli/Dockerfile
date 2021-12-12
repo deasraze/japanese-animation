@@ -1,6 +1,6 @@
 FROM php:8.0-cli-alpine
 
-ENV XDEBUG_VERSION 3.1.1
+ENV XDEBUG_VERSION 3.1.2
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
