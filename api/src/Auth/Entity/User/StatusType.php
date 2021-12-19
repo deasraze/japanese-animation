@@ -11,7 +11,7 @@ class StatusType extends StringType
 {
     public const NAME = 'auth_user_status';
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         return $value instanceof Status ? $value->getName() : $value;
     }

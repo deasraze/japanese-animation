@@ -11,7 +11,7 @@ class IdType extends GuidType
 {
     public const NAME = 'auth_user_id';
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         return $value instanceof Id ? $value->getValue() : $value;
     }

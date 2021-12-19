@@ -11,7 +11,7 @@ class EmailType extends StringType
 {
     public const NAME = 'auth_user_email';
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         return $value instanceof Email ? $value->getValue() : $value;
     }
